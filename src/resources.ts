@@ -1,14 +1,16 @@
 import { ImageFiltering, ImageSource, Loadable, Loader } from "excalibur";
 import { TiledResource } from '@excaliburjs/plugin-tiled';
-import { Player } from "./player";
+import darkMageSpriteSheetPath from '../img/actors/player/mage-dark.png';
+import {PlayerActor} from "./actors/player.actor";
+
 
 
 export const Resources = {
-    HeroSpriteSheetPng: new ImageSource('./img/Solaria Demo Pack Update 03/Solaria Demo Pack Update 03/16x16/Sprites/Hero 01.png', false, ImageFiltering.Pixel),
+    darkMageSpriteSheet: new ImageSource(darkMageSpriteSheetPath),
     TiledMap: new TiledResource('./res/first-level.tmx', {
         entityClassNameFactories: {
-            player: (props) => {
-                const player = new Player(props.worldPos);
+            playeractor: (props) => {
+                const player = new PlayerActor(props.worldPos);
                 player.z = 100;
                 return player;
             }

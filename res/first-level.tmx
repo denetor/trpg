@@ -45,7 +45,7 @@
    </properties>
    <point/>
   </object>
-  <object id="3" name="Player" type="player" x="119.362" y="30.1396">
+  <object id="3" name="Player" type="playeractor" x="119.362" y="30.1396">
    <point/>
   </object>
  </objectgroup>
