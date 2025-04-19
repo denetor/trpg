@@ -1,4 +1,4 @@
-import {Actor, Animation, Engine, SpriteSheet, vec} from "excalibur";
+import {Actor, Animation, CircleCollider, Engine, SpriteSheet, vec, Vector} from "excalibur";
 import {Player} from "../models/player.model";
 import * as ex from "excalibur";
 import {Resources} from "../resources";
@@ -8,18 +8,19 @@ export class PlayerActor extends Actor {
     model: Player;
     state: string;
     direction: string;
+    spriteSize: Vector;
 
     constructor(pos: ex.Vector) {
         super({
             pos,
-            width: 16,
-            height: 24,
+            collider: new CircleCollider({radius: 6, offset: vec(0, 6)}),
             collisionType: ex.CollisionType.Active
         });
         this.model = new Player();
         this.state = 'idle';
         this.direction = 'S';
         this.z = 100;
+        this.spriteSize = vec(16, 24);
     }
 
 
@@ -35,30 +36,30 @@ export class PlayerActor extends Actor {
         });
 
         // prepare animations
-        this.graphics.add('idleN', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [{ x: 1, y: 0, duration: 1000 }]));
-        this.graphics.add('idleE', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [{ x: 1, y: 1, duration: 1000 }]));
-        this.graphics.add('idleS', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [{ x: 1, y: 2, duration: 1000 }]));
-        this.graphics.add('idleW', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [{ x: 1, y: 3, duration: 1000 }]));
+        this.graphics.add('idleN', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [{ x: 1, y: 0, duration: 1000 }]));
+        this.graphics.add('idleE', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [{ x: 1, y: 1, duration: 1000 }]));
+        this.graphics.add('idleS', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [{ x: 1, y: 2, duration: 1000 }]));
+        this.graphics.add('idleW', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [{ x: 1, y: 3, duration: 1000 }]));
         // walk
-        this.graphics.add('walkN', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [
+        this.graphics.add('walkN', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [
             { x: 0, y: 0, duration: 125 },
             { x: 1, y: 0, duration: 125 },
             { x: 2, y: 0, duration: 125 },
             { x: 1, y: 0, duration: 125 },
         ]));
-        this.graphics.add('walkE', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [
+        this.graphics.add('walkE', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [
             { x: 0, y: 1, duration: 125 },
             { x: 1, y: 1, duration: 125 },
             { x: 2, y: 1, duration: 125 },
             { x: 1, y: 1, duration: 125 },
         ]));
-        this.graphics.add('walkS', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [
+        this.graphics.add('walkS', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [
             { x: 0, y: 2, duration: 125 },
             { x: 1, y: 2, duration: 125 },
             { x: 2, y: 2, duration: 125 },
             { x: 1, y: 2, duration: 125 },
         ]));
-        this.graphics.add('walkW', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [
+        this.graphics.add('walkW', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [
             { x: 0, y: 3, duration: 125 },
             { x: 1, y: 3, duration: 125 },
             { x: 2, y: 3, duration: 125 },
