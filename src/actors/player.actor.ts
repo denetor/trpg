@@ -35,30 +35,30 @@ export class PlayerActor extends Actor {
         });
 
         // prepare animations
-        this.graphics.add('idleN', AnimationFactory.createScaled(spriteSheet, vec(16,24), [{ x: 1, y: 0, duration: 1000 }]));
-        this.graphics.add('idleE', AnimationFactory.createScaled(spriteSheet, vec(16,24), [{ x: 1, y: 1, duration: 1000 }]));
-        this.graphics.add('idleS', AnimationFactory.createScaled(spriteSheet, vec(16,24), [{ x: 1, y: 2, duration: 1000 }]));
-        this.graphics.add('idleW', AnimationFactory.createScaled(spriteSheet, vec(16,24), [{ x: 1, y: 3, duration: 1000 }]));
+        this.graphics.add('idleN', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [{ x: 1, y: 0, duration: 1000 }]));
+        this.graphics.add('idleE', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [{ x: 1, y: 1, duration: 1000 }]));
+        this.graphics.add('idleS', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [{ x: 1, y: 2, duration: 1000 }]));
+        this.graphics.add('idleW', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [{ x: 1, y: 3, duration: 1000 }]));
         // walk
-        this.graphics.add('walkN', AnimationFactory.createScaled(spriteSheet, vec(16,24), [
+        this.graphics.add('walkN', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [
             { x: 0, y: 0, duration: 125 },
             { x: 1, y: 0, duration: 125 },
             { x: 2, y: 0, duration: 125 },
             { x: 1, y: 0, duration: 125 },
         ]));
-        this.graphics.add('walkE', AnimationFactory.createScaled(spriteSheet, vec(16,24), [
+        this.graphics.add('walkE', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [
             { x: 0, y: 1, duration: 125 },
             { x: 1, y: 1, duration: 125 },
             { x: 2, y: 1, duration: 125 },
             { x: 1, y: 1, duration: 125 },
         ]));
-        this.graphics.add('walkS', AnimationFactory.createScaled(spriteSheet, vec(16,24), [
+        this.graphics.add('walkS', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [
             { x: 0, y: 2, duration: 125 },
             { x: 1, y: 2, duration: 125 },
             { x: 2, y: 2, duration: 125 },
             { x: 1, y: 2, duration: 125 },
         ]));
-        this.graphics.add('walkW', AnimationFactory.createScaled(spriteSheet, vec(16,24), [
+        this.graphics.add('walkW', AnimationFactory.createScaled(spriteSheet, vec(this.width,this.height), [
             { x: 0, y: 3, duration: 125 },
             { x: 1, y: 3, duration: 125 },
             { x: 2, y: 3, duration: 125 },
