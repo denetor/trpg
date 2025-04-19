@@ -2,6 +2,7 @@ import {Actor, Animation, Engine, SpriteSheet, vec} from "excalibur";
 import {Player} from "../models/player.model";
 import * as ex from "excalibur";
 import {Resources} from "../resources";
+import {AnimationFactory} from "../factories/animation.factory";
 
 export class PlayerActor extends Actor {
     model: Player;
@@ -12,7 +13,7 @@ export class PlayerActor extends Actor {
         super({
             pos,
             width: 16,
-            height: 16,
+            height: 24,
             collisionType: ex.CollisionType.Active
         });
         this.model = new Player();
@@ -33,48 +34,36 @@ export class PlayerActor extends Actor {
             },
         });
 
-        // prepare animations: idle
-        this.graphics.add('idleN', Animation.fromSpriteSheetCoordinates({
-            spriteSheet: spriteSheet,
-            durationPerFrame: 1000,
-            frameCoordinates: [{ x: 1, y: 0 }],
-        }));
-        this.graphics.add('idleE', Animation.fromSpriteSheetCoordinates({
-            spriteSheet: spriteSheet,
-            durationPerFrame: 1000,
-            frameCoordinates: [{ x: 1, y: 1 }],
-        }));
-        this.graphics.add('idleS', Animation.fromSpriteSheetCoordinates({
-            spriteSheet: spriteSheet,
-            durationPerFrame: 1000,
-            frameCoordinates: [{ x: 1, y: 2 }],
-        }));
-        this.graphics.add('idleW', Animation.fromSpriteSheetCoordinates({
-            spriteSheet: spriteSheet,
-            durationPerFrame: 1000,
-            frameCoordinates: [{ x: 1, y: 3 }],
-        }));
+        // prepare animations
+        this.graphics.add('idleN', AnimationFactory.createScaled(spriteSheet, vec(16,24), [{ x: 1, y: 0, duration: 1000 }]));
+        this.graphics.add('idleE', AnimationFactory.createScaled(spriteSheet, vec(16,24), [{ x: 1, y: 1, duration: 1000 }]));
+        this.graphics.add('idleS', AnimationFactory.createScaled(spriteSheet, vec(16,24), [{ x: 1, y: 2, duration: 1000 }]));
+        this.graphics.add('idleW', AnimationFactory.createScaled(spriteSheet, vec(16,24), [{ x: 1, y: 3, duration: 1000 }]));
         // walk
-        this.graphics.add('walkN', Animation.fromSpriteSheetCoordinates({
-            spriteSheet: spriteSheet,
-            durationPerFrame: 125,
-            frameCoordinates: [{ x: 0, y: 0 },{ x: 1, y: 0 },{ x: 2, y: 0 },{ x: 1, y: 0 }],
-        }));
-        this.graphics.add('walkE', Animation.fromSpriteSheetCoordinates({
-            spriteSheet: spriteSheet,
-            durationPerFrame: 125,
-            frameCoordinates: [{ x: 0, y: 1 },{ x: 1, y: 1 },{ x: 2, y: 1 },{ x: 1, y: 1 }],
-        }));
-        this.graphics.add('walkS', Animation.fromSpriteSheetCoordinates({
-            spriteSheet: spriteSheet,
-            durationPerFrame: 125,
-            frameCoordinates: [{ x: 0, y: 2 },{ x: 1, y: 2 },{ x: 2, y: 2 },{ x: 1, y: 2 }],
-        }));
-        this.graphics.add('walkW', Animation.fromSpriteSheetCoordinates({
-            spriteSheet: spriteSheet,
-            durationPerFrame: 125,
-            frameCoordinates: [{ x: 0, y: 3 },{ x: 1, y: 3 },{ x: 2, y: 3 },{ x: 1, y: 3 }],
-        }));
+        this.graphics.add('walkN', AnimationFactory.createScaled(spriteSheet, vec(16,24), [
+            { x: 0, y: 0, duration: 125 },
+            { x: 1, y: 0, duration: 125 },
+            { x: 2, y: 0, duration: 125 },
+            { x: 1, y: 0, duration: 125 },
+        ]));
+        this.graphics.add('walkE', AnimationFactory.createScaled(spriteSheet, vec(16,24), [
+            { x: 0, y: 1, duration: 125 },
+            { x: 1, y: 1, duration: 125 },
+            { x: 2, y: 1, duration: 125 },
+            { x: 1, y: 1, duration: 125 },
+        ]));
+        this.graphics.add('walkS', AnimationFactory.createScaled(spriteSheet, vec(16,24), [
+            { x: 0, y: 2, duration: 125 },
+            { x: 1, y: 2, duration: 125 },
+            { x: 2, y: 2, duration: 125 },
+            { x: 1, y: 2, duration: 125 },
+        ]));
+        this.graphics.add('walkW', AnimationFactory.createScaled(spriteSheet, vec(16,24), [
+            { x: 0, y: 3, duration: 125 },
+            { x: 1, y: 3, duration: 125 },
+            { x: 2, y: 3, duration: 125 },
+            { x: 1, y: 3, duration: 125 },
+        ]));
     }
 
 
