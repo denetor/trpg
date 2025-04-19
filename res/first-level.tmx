@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="5">
+<map version="1.11" tiledversion="1.11.1-99-gec89c545" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="6">
  <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="421" source="crate.tsx"/>
  <layer id="1" name="Ground" width="10" height="10">
   <data encoding="csv">
 175,174,175,175,174,175,175,175,174,175,
@@ -26,14 +27,14 @@
 406,0,0,0,0,0,0,0,0,406,
 406,0,0,0,0,0,0,0,0,406,
 406,0,0,62,0,0,0,0,0,406,
-406,0,0,62,0,0,0,92,0,406,
+406,0,0,0,0,0,0,92,0,406,
 406,0,0,0,0,0,0,120,0,406,
 406,0,0,0,0,0,0,0,0,406,
 406,406,406,406,406,406,406,406,406,406
 </data>
  </layer>
  <objectgroup id="2" name="Objects">
-  <object id="1" name="Chest" gid="231" x="48" y="80" width="16" height="16">
+  <object id="1" name="Chest" gid="231" x="48.2615" y="80" width="16" height="16">
    <properties>
     <property name="CollisionType" value="Fixed"/>
    </properties>
@@ -47,6 +48,11 @@
   </object>
   <object id="3" name="Player" type="playeractor" x="119.362" y="30.1396">
    <point/>
+  </object>
+  <object id="5" name="crate" type="crate" gid="421" x="8.01308" y="41.6764" width="64" height="64">
+   <properties>
+    <property name="CollisionType" value="Fixed"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
