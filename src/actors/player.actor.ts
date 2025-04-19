@@ -100,36 +100,10 @@ export class PlayerActor extends Actor {
 
         // apply animation basing on state
         if (this.state === 'idle') {
-            switch (this.direction) {
-                case 'N':
-                    this.graphics.use('idleN');
-                    break;
-                case 'E':
-                    this.graphics.use('idleE');
-                    break;
-                case 'S':
-                    this.graphics.use('idleS');
-                    break;
-                case 'W':
-                    this.graphics.use('idleW');
-                    break;
-            }
+            this.graphics.use(`idle${this.direction}`);
         }
         else if (this.state === 'walk') {
-            switch (this.direction) {
-                case 'N':
-                    this.graphics.use('walkN');
-                    break;
-                case 'E':
-                    this.graphics.use('walkE');
-                    break;
-                case 'S':
-                    this.graphics.use('walkS');
-                    break;
-                case 'W':
-                    this.graphics.use('walkW');
-                    break;
-            }
+            this.graphics.use(`walk${this.direction}`);
         }
     }
 }
