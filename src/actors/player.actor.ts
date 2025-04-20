@@ -1,8 +1,9 @@
-import {Actor, Animation, CircleCollider, Engine, SpriteSheet, vec, Vector} from "excalibur";
+import {Actor, CircleCollider, Engine, SpriteSheet, vec, Vector} from "excalibur";
 import {Player} from "../models/player.model";
 import * as ex from "excalibur";
 import {Resources} from "../resources";
 import {AnimationFactory} from "../factories/animation.factory";
+import {SwordActor} from "./sword.actor";
 
 export class PlayerActor extends Actor {
     model: Player;
@@ -35,12 +36,12 @@ export class PlayerActor extends Actor {
             },
         });
 
-        // prepare animations
+        // idle animations
         this.graphics.add('idleN', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [{ x: 1, y: 0, duration: 1000 }]));
         this.graphics.add('idleE', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [{ x: 1, y: 1, duration: 1000 }]));
         this.graphics.add('idleS', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [{ x: 1, y: 2, duration: 1000 }]));
         this.graphics.add('idleW', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [{ x: 1, y: 3, duration: 1000 }]));
-        // walk
+        // walk animations
         this.graphics.add('walkN', AnimationFactory.createScaled(spriteSheet, vec(this.spriteSize.x,this.spriteSize.y), [
             { x: 0, y: 0, duration: 125 },
             { x: 1, y: 0, duration: 125 },
@@ -65,6 +66,10 @@ export class PlayerActor extends Actor {
             { x: 2, y: 3, duration: 125 },
             { x: 1, y: 3, duration: 125 },
         ]));
+
+        // add child actors
+        const swordActor = new SwordActor();
+        this.addChild(swordActor);
     }
 
 
