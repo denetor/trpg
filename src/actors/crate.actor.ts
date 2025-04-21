@@ -1,8 +1,10 @@
 import {Actor, Engine, SpriteSheet, vec, Vector} from "excalibur";
 import * as ex from "excalibur";
 import {Resources} from "../resources";
+import {Crate} from "../models/items/crate.model";
 
 export class CrateActor extends Actor {
+    model: Crate;
     spriteSize: Vector;
 
     constructor(pos: ex.Vector) {
@@ -13,6 +15,7 @@ export class CrateActor extends Actor {
             collisionType: ex.CollisionType.Active,
             name: 'crate',
         });
+        this.model = new Crate();
         this.z = 50;
         this.spriteSize = vec(16, 16);
     }
@@ -30,5 +33,11 @@ export class CrateActor extends Actor {
         });
         this.graphics.add('idle', spriteSheet.getSprite(5, 10));
         this.graphics.use('idle');
+    }
+
+    onPreUpdate(engine: Engine, elapsed: number) {
+        if (this.model.health <= 0) {
+            this.kill();
+        }
     }
 }

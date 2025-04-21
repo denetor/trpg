@@ -12,6 +12,7 @@ export class Character {
     // current status
     health: number;
 
+
     constructor() {
         this.health = 100;
         this.strength = 40;
@@ -19,7 +20,14 @@ export class Character {
         this.intelligence = 40;
     }
 
+
     getWalkSpeed() {
         return (1 + EasingsService.easeInOutQuad(this.agility / 100)) * 20;
+    }
+
+
+    takeHit(damage: number) {
+        console.log(`${this.constructor.name} took ${damage} damage`);
+        this.health -= damage;
     }
 }

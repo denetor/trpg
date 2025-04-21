@@ -61,8 +61,10 @@ export class SwordActor extends Actor {
         // ignore hitting sword owner
         if (this.parent && other.owner.id !== this.parent.id) {
             console.log(`${this.name} hit ${other.owner.name}`);
-            console.log({other});
-            // TODO send damage to hit entity
+            // send damage to hit entity
+            if ((other.owner as any).model) {
+                (other.owner as any).model.takeHit(this.model.getDamage());
+            }
         }
     }
 }
