@@ -2,6 +2,7 @@ import {Actor, AnimationStrategy, Collider, CollisionContact, Engine, Side, Spri
 import {Resources} from "../resources";
 import {AnimationFactory} from "../factories/animation.factory";
 import {Sword} from "../models/weapons/sword.model";
+import {SwordHitActor} from "./misc/sword-hit.actor";
 
 export class SwordActor extends Actor {
     SWING_FRAME_DURATION = 100;
@@ -60,10 +61,14 @@ export class SwordActor extends Actor {
         super.onCollisionStart(self, other, side, contact);
         // ignore hitting sword owner
         if (this.parent && other.owner.id !== this.parent.id) {
-            console.log(`${this.name} hit ${other.owner.name}`);
             // send damage to hit entity
             if ((other.owner as any).model) {
                 (other.owner as any).model.takeHit(this.model.getDamage());
+            }
+            // spawn hit animation
+            const hitActor = new SwordHitActor({x: contact.points[0].x, y: contact.points[0].y});
+            if (hitActor !== null && hitActor !== undefined && this.scene !== null && this.scene !== undefined) {
+                this.scene.add(hitActor);
             }
         }
     }
