@@ -1,7 +1,9 @@
-import {Actor, Engine, SpriteSheet, vec, Vector} from "excalibur";
+import {Actor, Engine, Scene, SpriteSheet, vec, Vector} from "excalibur";
 import * as ex from "excalibur";
 import {Resources} from "../resources";
 import {Crate} from "../models/items/crate.model";
+import {SwordHitActor} from "./misc/sword-hit.actor";
+import {ItemDestroyedActor} from "./misc/item-destroyed.actor";
 
 export class CrateActor extends Actor {
     model: Crate;
@@ -38,6 +40,16 @@ export class CrateActor extends Actor {
     onPreUpdate(engine: Engine, elapsed: number) {
         if (this.model.health <= 0) {
             this.kill();
+        }
+    }
+
+
+    onPostKill(scene: Scene) {
+        super.onPostKill(scene);
+        // add transitory "dust" animation
+        const cloudsActor = new ItemDestroyedActor({x: this.pos.x, y: this.pos.y});
+        if (cloudsActor !== null && cloudsActor !== undefined && this.scene !== null && this.scene !== undefined) {
+            this.scene.add(cloudsActor);
         }
     }
 }
