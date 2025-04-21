@@ -1,9 +1,20 @@
-import {Actor, AnimationStrategy, Engine, SpriteSheet, vec} from "excalibur";
+import {Actor, AnimationStrategy, Collider, CollisionContact, Engine, Side, SpriteSheet, vec} from "excalibur";
 import {Resources} from "../resources";
 import {AnimationFactory} from "../factories/animation.factory";
+import {Sword} from "../models/weapons/sword.model";
 
 export class SwordActor extends Actor {
     SWING_FRAME_DURATION = 100;
+    model: Sword;
+
+
+    constructor() {
+        super({
+            // radius: 8,
+            name: 'sword',
+        });
+        this.model = new Sword();
+    }
 
     onInitialize(engine: Engine) {
         const spriteSheet = SpriteSheet.fromImageSource({
@@ -42,5 +53,16 @@ export class SwordActor extends Actor {
             { x: 3, y: 7, duration: this.SWING_FRAME_DURATION },
         ]}));
         this.graphics.isVisible = false;
+    }
+
+
+    onCollisionStart(self: Collider, other: Collider, side: Side, contact: CollisionContact) {
+        super.onCollisionStart(self, other, side, contact);
+        // ignore hitting sword owner
+        if (other.owner.id !== this.parent.id) {
+            console.log('Sword hit something');
+            console.log({other});
+            // TODO send damage to hit entity
+        }
     }
 }

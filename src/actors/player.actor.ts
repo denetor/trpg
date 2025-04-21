@@ -16,7 +16,8 @@ export class PlayerActor extends Actor {
         super({
             pos,
             collider: new CircleCollider({radius: 6, offset: vec(0, 6)}),
-            collisionType: CollisionType.Active
+            collisionType: CollisionType.Active,
+            name: 'player',
         });
         this.spriteSize = vec(16, 24);
         this.z = 100;
@@ -69,7 +70,7 @@ export class PlayerActor extends Actor {
             { x: 1, y: 3, duration: 125 },
         ]}));
 
-        // add child actors
+        // add sword as child actor
         const swordActor = new SwordActor();
         swordActor.name = 'sword';
         this.addChild(swordActor);
@@ -121,7 +122,7 @@ export class PlayerActor extends Actor {
 
         // sword attack animation management
         if (this.state === 'swordAttack' && this.contactAttackStatus === ContactAttackStatus.Init) {
-            // start sword attacj
+            // start sword attack
             this.contactAttackStatus = ContactAttackStatus.Active;
             const swordActor: Actor = this.children.find(c => c.name === 'sword') as Actor;
             if (swordActor) {
@@ -139,15 +140,20 @@ export class PlayerActor extends Actor {
                         swordActor.pos = vec(-4, 0);
                         break;
                 }
+                // prepare animation
                 swordActor.graphics.use(`swing${this.direction}`);
-                swordActor.graphics.isVisible = true;
-                // subscribe to animation to detect when it's finished
                 const animation: Animation = swordActor.graphics.getGraphic(`swing${this.direction}`) as any as Animation;
                 animation.reset();
                 animation.goToFrame(0);
                 animation.play();
+                swordActor.graphics.isVisible = true;
+                // activate collider on swing
+                swordActor.collider.useCircleCollider(8);
+                // subscribe to animation to detect when it's finished
                 animation.events.on('end', (a) => {
                     swordActor.graphics.isVisible = false;
+                    // deactivate collider at the end
+                    swordActor.collider.clear();
                     this.contactAttackStatus = ContactAttackStatus.None;
                     this.state = 'idle';
                 });

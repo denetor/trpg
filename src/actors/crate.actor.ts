@@ -10,7 +10,8 @@ export class CrateActor extends Actor {
             pos,
             width: 16,
             height: 16,
-            collisionType: ex.CollisionType.Active
+            collisionType: ex.CollisionType.Active,
+            name: 'crate',
         });
         this.z = 50;
         this.spriteSize = vec(16, 16);
