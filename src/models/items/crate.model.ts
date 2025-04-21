@@ -4,7 +4,7 @@ export class Crate extends Item {
     constructor() {
         super();
         this.health = 20;
-        this.damageable = false;
+        this.damageable = true;
         this.armor = 2;
     }
 }
