@@ -1,4 +1,4 @@
-import {Actor, Engine, Scene, SpriteSheet, vec, Vector} from "excalibur";
+import {Actor, Color, Engine, Font, FontUnit, Label, Scene, SpriteSheet, vec, Vector} from "excalibur";
 import * as ex from "excalibur";
 import {Resources} from "../resources";
 import {Crate} from "../models/items/crate.model";

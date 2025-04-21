@@ -13,10 +13,13 @@ export class Item {
     }
 
 
-    takeHit(damage: number) {
+    takeHit(damage: number): number {
+        let damageTaken = 0;
         if (this.damageable && damage > this.armor) {
             console.log(`${this.constructor.name} took ${damage} damage`);
-            this.health -= damage + this.armor;
+            damageTaken = damage - this.armor;
+            this.health -= damageTaken;
         }
+        return damageTaken;
     }
 }

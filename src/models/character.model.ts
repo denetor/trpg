@@ -8,6 +8,7 @@ export class Character {
      */
     agility: number;
     intelligence: number;
+    armor: number;
 
     // current status
     health: number;
@@ -18,6 +19,7 @@ export class Character {
         this.strength = 40;
         this.agility = 40;
         this.intelligence = 40;
+        this.armor = 0;
     }
 
 
@@ -26,8 +28,12 @@ export class Character {
     }
 
 
-    takeHit(damage: number) {
-        console.log(`${this.constructor.name} took ${damage} damage`);
-        this.health -= damage;
+    takeHit(damage: number): number {
+        let damageTaken = 0;
+        if (damage > this.armor) {
+            damageTaken = damage - this.armor;
+            this.health -= damageTaken;
+        }
+        return damageTaken;
     }
 }

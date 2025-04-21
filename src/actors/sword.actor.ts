@@ -3,6 +3,7 @@ import {Resources} from "../resources";
 import {AnimationFactory} from "../factories/animation.factory";
 import {Sword} from "../models/weapons/sword.model";
 import {SwordHitActor} from "./misc/sword-hit.actor";
+import {DamageLabel} from "./misc/damage-label.actor";
 
 export class SwordActor extends Actor {
     SWING_FRAME_DURATION = 100;
@@ -63,7 +64,13 @@ export class SwordActor extends Actor {
         if (this.parent && other.owner.id !== this.parent.id) {
             // send damage to hit entity
             if ((other.owner as any).model) {
-                (other.owner as any).model.takeHit(this.model.getDamage());
+                const damage = (other.owner as any).model.takeHit(this.model.getDamage());
+                if (damage > 0) {
+                    const damageLabel = new DamageLabel({damage, pos: vec(contact.points[0].x, contact.points[0].y)});
+                    if (this.scene !== null && this.scene !== undefined) {
+                        this.scene.add(damageLabel);
+                    }
+                }
             }
             // spawn hit animation
             const hitActor = new SwordHitActor({x: contact.points[0].x, y: contact.points[0].y});
