@@ -59,8 +59,8 @@ export class SwordActor extends Actor {
     onCollisionStart(self: Collider, other: Collider, side: Side, contact: CollisionContact) {
         super.onCollisionStart(self, other, side, contact);
         // ignore hitting sword owner
-        if (other.owner.id !== this.parent.id) {
-            console.log('Sword hit something');
+        if (this.parent && other.owner.id !== this.parent.id) {
+            console.log(`${this.name} hit ${other.owner.name}`);
             console.log({other});
             // TODO send damage to hit entity
         }
