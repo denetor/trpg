@@ -9,5 +9,8 @@ export abstract class Weapon extends Item {
         super();
     }
 
+    /**
+     * Returns the damage dealt to the hit entity
+     */
     abstract getDamage(): number;
 }

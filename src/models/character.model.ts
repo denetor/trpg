@@ -1,23 +1,36 @@
 import {EasingsService} from "../services/easings.service";
 import {Hittable} from "./hittable.interface";
 
+
+export interface CharacterCreateOptions {
+    strength?: number;
+    agility?: number;
+    intelligence?: number;
+    armor?: number;
+    maxHealth?: number;
+    health?: number;
+}
+
+
 export class Character implements Hittable {
     // main stats
     strength: number;
     agility: number;
     intelligence: number;
     armor: number;
+    maxHealth: number;
 
     // current status
     health: number;
 
 
-    constructor() {
-        this.health = 100;
-        this.strength = 40;
-        this.agility = 40;
-        this.intelligence = 40;
-        this.armor = 0;
+    constructor(options?: CharacterCreateOptions) {
+        this.strength = options?.strength ?? 40;
+        this.agility = options?.agility ?? 40;
+        this.intelligence = options?.intelligence ?? 40;
+        this.armor = options?.armor ?? 0;
+        this.maxHealth = options?.maxHealth ?? 100;
+        this.health = options?.health ?? 100;
     }
 
 
