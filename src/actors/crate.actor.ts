@@ -37,6 +37,7 @@ export class CrateActor extends Actor {
         this.graphics.use('idle');
     }
 
+
     onPreUpdate(engine: Engine, elapsed: number) {
         if (this.model.health <= 0) {
             this.kill();

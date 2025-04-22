@@ -2,6 +2,9 @@ import {Actor, Animation, AnimationStrategy, Engine, SpriteSheet, vec} from "exc
 import {Resources} from "../../resources";
 import {AnimationFactory} from "../../factories/animation.factory";
 
+/**
+ * Represents the "spark" animation of a sword that has hit a target
+ */
 export class SwordHitActor extends Actor {
 
     onInitialize(engine: Engine) {
@@ -14,12 +17,11 @@ export class SwordHitActor extends Actor {
                 spriteHeight: 16,
             }
         });
-
         this.graphics.add('default', AnimationFactory.createScaled({spriteSheet, targetSize: vec(16, 16), strategy: AnimationStrategy.End, frames: [
             { x: 0, y: 0, duration: 200 },
             { x: 1, y: 0, duration: 200 },
         ]}));
-
+        // animate once and kill yourself
         const animation: Animation = this.graphics.getGraphic(`default`) as any as Animation;
         animation.events.on('end', (a) => {
             this.kill();
