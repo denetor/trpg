@@ -1,7 +1,9 @@
+import {Hittable} from "./hittable.interface";
+
 /**
  * Base class fort any item
  */
-export class Item {
+export class Item implements Hittable {
     damageable: boolean;
     health: number;
     armor: number;

@@ -1,11 +1,9 @@
 import {EasingsService} from "../services/easings.service";
+import {Hittable} from "./hittable.interface";
 
-export class Character {
+export class Character implements Hittable {
     // main stats
     strength: number;
-    /**
-     * Phisical agility: determines walking speed and agility-related tasks success rate
-     */
     agility: number;
     intelligence: number;
     armor: number;
