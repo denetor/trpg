@@ -4,6 +4,7 @@ import {Resources} from "../resources";
 import {AnimationFactory} from "../factories/animation.factory";
 import {SwordActor} from "./sword.actor";
 import {ContactAttackStatus} from "./contact-attack-status.enum";
+import {AlertActor} from "./ui/alert.actor";
 
 export class PlayerActor extends Actor {
     model: Player;
@@ -158,6 +159,14 @@ export class PlayerActor extends Actor {
                     this.state = 'idle';
                 });
             }
+        }
+
+        // debug: display alert
+        if (engine.input.keyboard.isHeld(Keys.A) && this.scene) {
+            console.log('alert');
+            const a = new AlertActor({text: 'Hello world', screenWidth: this.scene.engine.drawWidth, screenHeight: this.scene.engine.drawHeight});
+            a.z = 999;
+            this.scene.add(a);
         }
     }
 }
