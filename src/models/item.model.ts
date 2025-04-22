@@ -34,18 +34,18 @@ export class Item implements Hittable {
     constructor(options?: ItemCreateOptions) {
         this.damageable = options?.damageable ?? false;
         this.maxHealth = options?.maxHealth ?? 100;
-        this.health = options?.health ?? 100;
+        this.health = options?.health ?? options?.maxHealth ?? 100;
         this.armor = options?.armor ?? 0;
     }
 
 
-    takeHit(damage: number): number {
-        let damageTaken = 0;
-        if (this.damageable && damage > this.armor) {
-            console.log(`${this.constructor.name} took ${damage} damage`);
-            damageTaken = damage - this.armor;
-            this.health -= damageTaken;
+    takeHit(impact: number): number {
+        let actualDamage = 0;
+        if (this.damageable && impact > this.armor) {
+            actualDamage = impact - this.armor;
+            this.health -= actualDamage;
+            console.log(`${this.constructor.name} took ${actualDamage} damage`);
         }
-        return damageTaken;
+        return actualDamage;
     }
 }

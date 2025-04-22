@@ -30,21 +30,30 @@ export class Character implements Hittable {
         this.intelligence = options?.intelligence ?? 40;
         this.armor = options?.armor ?? 0;
         this.maxHealth = options?.maxHealth ?? 100;
-        this.health = options?.health ?? 100;
+        this.health = options?.health ?? options?.maxHealth ?? 100;
     }
 
 
+    /**
+     * Calculates and returns the walking speed of an entity based on its agility.
+     *
+     * The walking speed is determined using a mathematical easing function to
+     * scale the agility value into a speed multiplier.
+     *
+     * @return {number} The calculated walking speed.
+     */
     getWalkSpeed() {
         return (1 + EasingsService.easeInOutQuad(this.agility / 100)) * 20;
     }
 
 
-    takeHit(damage: number): number {
-        let damageTaken = 0;
-        if (damage > this.armor) {
-            damageTaken = damage - this.armor;
-            this.health -= damageTaken;
+    takeHit(impact: number): number {
+        let actualDamage = 0;
+        if (impact > this.armor) {
+            actualDamage = impact - this.armor;
+            this.health -= actualDamage;
+            console.log(`${this.constructor.name} took ${actualDamage} damage`);
         }
-        return damageTaken;
+        return actualDamage;
     }
 }
