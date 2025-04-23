@@ -1,10 +1,10 @@
-import {Animation, Actor, CircleCollider, CollisionType, Engine, Keys, SpriteSheet, vec, Vector} from "excalibur";
+import {Animation, Actor, CircleCollider, CollisionType, Engine, Keys, SpriteSheet, vec, Vector, Color} from "excalibur";
 import {Player} from "../models/player.model";
 import {Resources} from "../resources";
 import {AnimationFactory} from "../factories/animation.factory";
 import {SwordActor} from "./sword.actor";
 import {ContactAttackStatus} from "./contact-attack-status.enum";
-import {AlertActor} from "./ui/alert.actor";
+import {MessageActor} from "./ui/message.actor";
 
 export class PlayerActor extends Actor {
     model: Player;
@@ -161,12 +161,21 @@ export class PlayerActor extends Actor {
             }
         }
 
-        // debug: display alert
-        if (engine.input.keyboard.isHeld(Keys.A) && this.scene) {
-            console.log('alert');
-            const a = new AlertActor({text: 'Hello world', screenWidth: this.scene.engine.drawWidth, screenHeight: this.scene.engine.drawHeight});
-            a.z = 999;
-            this.scene.add(a);
+        // debug: display message
+        if (engine.input.keyboard.wasPressed(Keys.A) && this.scene) {
+            console.log('Showing message');
+
+            // Create a new message actor with auto-hide after 3 seconds
+            const messageActor = new MessageActor({
+                engine: this.scene.engine,
+                text: "This is\n a test \nmessage!",
+                autoHideAfterMs: 3000,
+                hideOnClick: true,
+                fontColor: Color.Yellow
+            });
+
+            // Add the message actor to the scene
+            this.scene.add(messageActor);
         }
     }
 }
