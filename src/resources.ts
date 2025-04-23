@@ -14,7 +14,7 @@ export const Resources = {
     darkMageSpriteSheet: new ImageSource(darkMageSpriteSheetPath),
     swordSpriteSheet: new ImageSource(swordSpriteSheetPath),
     customSpriteSheet: new ImageSource(customSpriteSheetPath),
-    TiledMap: new TiledResource('./res/first-level.tmx', {
+    TiledMap: new TiledResource('./res/test-level.tmx', {
         entityClassNameFactories: {
             playeractor: PlayerActorFactory.create,
             crate: CrateActorFactory.create,
