@@ -2,11 +2,12 @@ import * as ex from 'excalibur';
 import { Resources, loader } from './resources';
 
 const game = new ex.Engine({
+    canvasElementId: 'game',
     width: 800,
     height: 600,
-    canvasElementId: 'game',
+    // displayMode: ex.DisplayMode.FitScreen,
+    displayMode: ex.DisplayMode.FillScreen,
     pixelArt: true,
-    pixelRatio: 2,
     suppressPlayButton: true,
 });
 
