@@ -163,8 +163,6 @@ export class PlayerActor extends Actor {
 
         // debug: display message
         if (engine.input.keyboard.wasPressed(Keys.A) && this.scene) {
-            console.log('Showing message');
-
             // Create a new message actor with auto-hide after 3 seconds
             const messageActor = new ScreenMessage({
                 engine: this.scene.engine,
@@ -173,8 +171,6 @@ export class PlayerActor extends Actor {
                 hideOnClick: true,
                 fontColor: Color.Yellow,
             });
-
-            // Add the message actor to the scene
             this.scene.add(messageActor);
         }
     }

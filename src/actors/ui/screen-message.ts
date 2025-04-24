@@ -55,7 +55,6 @@ export class ScreenMessage extends  ScreenElement {
         // hide on click, if requested
         // if (this.options.hideOnClick) {
         //     this.on('pointerdown', () => {
-        //         console.log('Click to hide message');
         //         this.kill();
         //     });
         // }
