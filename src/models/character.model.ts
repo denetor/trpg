@@ -1,5 +1,6 @@
 import {EasingsService} from "../services/easings.service";
 import {Hittable} from "./hittable.interface";
+import {Logger} from "excalibur";
 
 
 export interface CharacterCreateOptions {
@@ -55,7 +56,7 @@ export class Character implements Hittable {
         if (impact > this.armor) {
             actualDamage = impact - this.armor;
             this.health -= actualDamage;
-            console.log(`${this.constructor.name} took ${actualDamage} damage`);
+            Logger.getInstance().info(`${this.constructor.name} took ${actualDamage} damage`);
         }
         return actualDamage;
     }

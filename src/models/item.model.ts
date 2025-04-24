@@ -1,4 +1,5 @@
 import {Hittable} from "./hittable.interface";
+import {Logger, LogLevel, ScreenAppender} from "excalibur";
 
 
 /**
@@ -45,7 +46,7 @@ export class Item implements Hittable {
         if (this.damageable && impact > this.armor) {
             actualDamage = impact - this.armor;
             this.health -= actualDamage;
-            console.log(`${this.constructor.name} took ${actualDamage} damage`);
+            Logger.getInstance().info(`${this.constructor.name} took ${actualDamage} damage`);
         }
         return actualDamage;
     }
