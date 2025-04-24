@@ -1,7 +1,7 @@
 import * as ex from 'excalibur';
 import { Resources, loader } from './resources';
 
-const game = new ex.Engine({
+export const game = new ex.Engine({
     canvasElementId: 'game',
     width: 800,
     height: 600,
@@ -13,11 +13,4 @@ const game = new ex.Engine({
 
 game.start(loader).then(() => {
     Resources.TiledMap.addToScene(game.currentScene);
-
-    game.currentScene.onActivate = () => {
-        const player = (game.currentScene.actors.find((a: any) => a.name === 'player')) as any;
-        if (player) {
-            game.currentScene.camera.strategy.lockToActor(player);
-        }
-    }
 });

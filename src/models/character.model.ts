@@ -43,7 +43,7 @@ export class Character implements Hittable {
      * @return {number} The calculated walking speed.
      */
     getWalkSpeed() {
-        return (1 + EasingsService.easeInOutQuad(this.agility / 100)) * 20;
+        return (1 + EasingsService.easeInOutQuad(this.agility / 100)) * 40;
     }
 
 
