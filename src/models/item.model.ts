@@ -26,6 +26,7 @@ export interface ItemCreateOptions {
  * Base class fort any item
  */
 export class Item implements Hittable {
+    static INITIAL_HEALTH = 100;
     damageable: boolean;
     maxHealth: number;
     health: number;
@@ -33,8 +34,8 @@ export class Item implements Hittable {
 
     constructor(options?: ItemCreateOptions) {
         this.damageable = options?.damageable ?? false;
-        this.maxHealth = options?.maxHealth ?? 100;
-        this.health = options?.health ?? options?.maxHealth ?? 100;
+        this.maxHealth = options?.maxHealth ?? Item.INITIAL_HEALTH;
+        this.health = options?.health ?? options?.maxHealth ?? Item.INITIAL_HEALTH;
         this.armor = options?.armor ?? 0;
     }
 

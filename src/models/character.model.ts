@@ -13,6 +13,9 @@ export interface CharacterCreateOptions {
 
 
 export class Character implements Hittable {
+    static INITIAL_ABILITY_VALUE = 40;
+    static INITIAL_HEALTH = 100;
+    static SPEED_MULTIPLIER = 50;
     // main stats
     strength: number;
     agility: number;
@@ -25,12 +28,12 @@ export class Character implements Hittable {
 
 
     constructor(options?: CharacterCreateOptions) {
-        this.strength = options?.strength ?? 40;
-        this.agility = options?.agility ?? 40;
-        this.intelligence = options?.intelligence ?? 40;
+        this.strength = options?.strength ?? Character.INITIAL_ABILITY_VALUE;
+        this.agility = options?.agility ?? Character.INITIAL_ABILITY_VALUE;
+        this.intelligence = options?.intelligence ?? Character.INITIAL_ABILITY_VALUE;
         this.armor = options?.armor ?? 0;
-        this.maxHealth = options?.maxHealth ?? 100;
-        this.health = options?.health ?? options?.maxHealth ?? 100;
+        this.maxHealth = options?.maxHealth ?? Character.INITIAL_HEALTH;
+        this.health = options?.health ?? options?.maxHealth ?? Character.INITIAL_HEALTH;
     }
 
 
@@ -43,7 +46,7 @@ export class Character implements Hittable {
      * @return {number} The calculated walking speed.
      */
     getWalkSpeed() {
-        return (1 + EasingsService.easeInOutQuad(this.agility / 100)) * 40;
+        return (1 + EasingsService.easeInOutQuad(this.agility / 100)) * Character.SPEED_MULTIPLIER;
     }
 
 
