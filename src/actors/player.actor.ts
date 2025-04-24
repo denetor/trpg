@@ -4,7 +4,7 @@ import {Resources} from "../resources";
 import {AnimationFactory} from "../factories/animation.factory";
 import {SwordActor} from "./sword.actor";
 import {ContactAttackStatus} from "./contact-attack-status.enum";
-import {MessageActor} from "./ui/message.actor";
+import {ScreenMessage} from "./ui/screen-message";
 
 export class PlayerActor extends Actor {
     model: Player;
@@ -166,12 +166,12 @@ export class PlayerActor extends Actor {
             console.log('Showing message');
 
             // Create a new message actor with auto-hide after 3 seconds
-            const messageActor = new MessageActor({
+            const messageActor = new ScreenMessage({
                 engine: this.scene.engine,
-                text: "This is\n a test \nmessage!",
+                text: 'Hello World\nthis is\na multiline message!',
                 autoHideAfterMs: 3000,
                 hideOnClick: true,
-                fontColor: Color.Yellow
+                fontColor: Color.Yellow,
             });
 
             // Add the message actor to the scene
