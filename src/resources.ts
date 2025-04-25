@@ -4,8 +4,10 @@ import darkMageSpriteSheetPath from '../img/actors/player/mage-dark.png';
 import solariaSpriteSheetPath from '../img/Solaria Demo Pack Update 03/Solaria Demo Pack Update 03/16x16/Tilesets/Solaria Demo Update 01.png';
 import swordSpriteSheetPath from '../img/Solaria Demo Pack Update 03/Solaria Demo Pack Update 03/16x16/Sprites/Sword 01.png';
 import customSpriteSheetPath from '../img/event-sprites.png';
+import slimeSpriteSheetPath from '../img/Solaria Demo Pack Update 03/Solaria Demo Pack Update 03/RPG Maker/characters/Monster.png';
 import {PlayerActorFactory} from "./factories/playerActorFactory";
 import {CrateActorFactory} from "./factories/crateActorFactory";
+import {SlimeActorFactory} from "./factories/slimeActorFactory";
 
 
 
@@ -14,10 +16,13 @@ export const Resources = {
     darkMageSpriteSheet: new ImageSource(darkMageSpriteSheetPath),
     swordSpriteSheet: new ImageSource(swordSpriteSheetPath),
     customSpriteSheet: new ImageSource(customSpriteSheetPath),
+    slimeSpriteSheet: new ImageSource(slimeSpriteSheetPath),
     TiledMap: new TiledResource('./res/test-level.tmx', {
         entityClassNameFactories: {
             playeractor: PlayerActorFactory.create,
             crate: CrateActorFactory.create,
+            pngSlime: SlimeActorFactory.create,
+            //pngSlimeFriendly: SlimeActorFactory.create,
         },
     })
 }

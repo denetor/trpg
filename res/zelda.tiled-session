@@ -23,14 +23,22 @@
             "scale": 3.82375,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 119.38542007191893,
-                "y": 30.075187969924812
+                "x": 79.76462896371362,
+                "y": 79.63386727688787
             }
         },
         "first-level.tmx#Base2": {
             "scaleInDock": 1
         },
         "first-level.tmx#crate": {
+            "scaleInEditor": 1
+        },
+        "monster.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "slime.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "test-level.tmx": {
@@ -40,8 +48,8 @@
             "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 357.75,
-                "y": 696.5
+                "x": 415.5,
+                "y": 699
             }
         },
         "tileset.tsx": {
@@ -49,7 +57,7 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "/home/nicola/prj/trpg/img/actors/objects",
+    "last.imagePath": "/home/nicola/prj/trpg/img/Solaria Demo Pack Update 03/Solaria Demo Pack Update 03/RPG Maker/characters",
     "map.height": 64,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
@@ -57,20 +65,23 @@
     "map.width": 64,
     "openFiles": [
         "first-level.tmx",
-        "test-level.tmx"
+        "test-level.tmx",
+        "slime.tsx"
     ],
     "project": "zelda.tiled-project",
     "property.type": "int",
     "recentFiles": [
         "first-level.tmx",
+        "slime.tsx",
         "test-level.tmx",
+        "monster.tsx",
         "tileset.tsx",
         "crate.tsx"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 64,
-        "width": 64
+        "height": 48,
+        "width": 48
     }
 }
