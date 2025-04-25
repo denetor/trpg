@@ -1,5 +1,6 @@
 import * as ex from 'excalibur';
 import { Resources, loader } from './resources';
+import {DevScene} from "./scenes/dev.scene";
 
 export const game = new ex.Engine({
     canvasElementId: 'game',
@@ -11,6 +12,12 @@ export const game = new ex.Engine({
     suppressPlayButton: true,
 });
 
+const scenes = {
+    devScene: new DevScene(),
+}
+
+game.addScene('dev', scenes.devScene);
+
 game.start(loader).then(() => {
-    Resources.TiledMap.addToScene(game.currentScene);
+    game.goToScene('dev');
 });
