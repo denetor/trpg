@@ -1,4 +1,5 @@
 import {Actor, Color, Engine, Font, FontUnit, Label, Timer, vec, Vector} from "excalibur";
+import {Config} from "../../config";
 
 
 /**
@@ -12,18 +13,7 @@ export class EphemeralMessage extends Label {
         super({
             text: `${options.message}`,
             pos: options.actor.pos.add(vec(- options.actor.width / 2, - options.actor.height / 2 - 10)),
-            font: new Font({
-                family: 'monospace',
-                size: 7,
-                bold: true,
-                unit: FontUnit.Px,
-                color: Color.Green,
-                shadow: {
-                    blur: 1,
-                    offset: vec(2, 2),
-                    color: Color.Black,
-                },
-            })
+            font: Config.font.ephemeralMessage,
         });
     }
 

@@ -1,4 +1,18 @@
+import {Color, Font, FontUnit, vec} from "excalibur";
+
 export const Config = {
-    PlayerSpeed: 16*2, // pixels/sec
-    PlayerFrameSpeed: 200, // ms
+    font: {
+        ephemeralMessage: new Font({
+            family: 'monospace',
+            size: 7,
+            bold: true,
+            unit: FontUnit.Px,
+            color: Color.Green,
+            shadow: {
+                blur: 1,
+                offset: vec(2, 2),
+                color: Color.Black,
+            },
+        })
+    }
 }
