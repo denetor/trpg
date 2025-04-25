@@ -5,8 +5,10 @@ import {AnimationFactory} from "../factories/animation.factory";
 import {SwordActor} from "./sword.actor";
 import {ContactAttackStatus} from "./contact-attack-status.enum";
 import {ScreenMessage} from "./ui/screen-message";
+import {Talkable} from "./talkable.interface";
+import {EphemeralMessage} from "./misc/ephemeral-message.actor";
 
-export class PlayerActor extends Actor {
+export class PlayerActor extends Actor implements Talkable {
     model: Player;
     state: string;
     direction: string;
@@ -71,7 +73,7 @@ export class PlayerActor extends Actor {
             { x: 1, y: 3, duration: 125 },
         ]}));
 
-        // add sword as child actor
+        // add sword as a child actor
         const swordActor = new SwordActor();
         swordActor.name = 'sword';
         this.addChild(swordActor);
@@ -172,6 +174,20 @@ export class PlayerActor extends Actor {
                 fontColor: Color.Yellow,
             });
             this.scene.add(messageActor);
+        }
+
+
+        // debug: display ephemeral message
+        if (engine.input.keyboard.wasPressed(Keys.H) && this.scene) {
+            this.say('Hello World');
+        }
+    }
+
+
+    say(message: string): void {
+        if (this.scene) {
+            const msg = new EphemeralMessage({message, actor: this});
+            this.scene.add(msg);
         }
     }
 }
