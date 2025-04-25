@@ -12,11 +12,21 @@ export const game = new ex.Engine({
     suppressPlayButton: true,
 });
 
+
+export const status = {
+    // currently hovered actor
+    selectedActor: {
+        actor: null,
+        selectedAt: null,
+    }
+}
+
+
 const scenes = {
     devScene: new DevScene(),
 }
-
 game.addScene('dev', scenes.devScene);
+
 
 game.start(loader).then(() => {
     game.goToScene('dev');

@@ -1,4 +1,16 @@
-import {Animation, Actor, CircleCollider, CollisionType, Engine, Keys, SpriteSheet, vec, Vector, Color} from "excalibur";
+import {
+    Animation,
+    Actor,
+    CircleCollider,
+    CollisionType,
+    Engine,
+    Keys,
+    SpriteSheet,
+    vec,
+    Vector,
+    Color,
+    Logger
+} from "excalibur";
 import {Player} from "../models/player.model";
 import {Resources} from "../resources";
 import {AnimationFactory} from "../factories/animation.factory";
@@ -28,6 +40,8 @@ export class PlayerActor extends Actor implements Talkable {
         this.state = 'idle';
         this.direction = 'S';
         this.contactAttackStatus = ContactAttackStatus.None;
+
+
     }
 
 

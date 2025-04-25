@@ -24,6 +24,7 @@ export class SlimeActor extends NpcActor {
 
 
     onInitialize(engine: Engine) {
+        super.onInitialize(engine);
         const spriteSheet = SpriteSheet.fromImageSource({
             image: Resources.slimeSpriteSheet,
             grid: {

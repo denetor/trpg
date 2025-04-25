@@ -1,12 +1,34 @@
-import {Actor, Engine, Scene} from "excalibur";
+import {Actor, Engine, Logger, Scene} from "excalibur";
 import {ItemDestroyedActor} from "../misc/item-destroyed.actor";
 import {Character} from "../../models/character.model";
+import {ActorArgs} from "excalibur/build/dist/Actor";
+import {status} from '../../main';
 
 /**
  * Generic NPC base class
  */
 export class NpcActor extends Actor {
     model: Character = undefined as any;
+
+
+    constructor(config?: ActorArgs) {
+        super(config);
+    }
+
+
+    onInitialize(engine: Engine) {
+        super.onInitialize(engine);
+
+        // update currently selected actor in status
+        this.on('pointerenter', () => {
+            status.selectedActor.actor = this as any;
+            status.selectedActor.selectedAt = new Date() as any;
+        });
+        this.on('pointerleave', () => {
+            status.selectedActor.actor = null;
+            status.selectedActor.selectedAt = null;
+        });
+    }
 
 
 
@@ -27,5 +49,6 @@ export class NpcActor extends Actor {
             this.scene.add(cloudsActor);
         }
     }
+
 
 }
