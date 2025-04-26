@@ -1,4 +1,4 @@
-import {Actor, Engine, Logger, Scene} from "excalibur";
+import {Actor, Collider, CollisionStartEvent, Engine, Logger, Scene} from "excalibur";
 import {ItemDestroyedActor} from "../misc/item-destroyed.actor";
 import {Character} from "../../models/character.model";
 import {ActorArgs} from "excalibur/build/dist/Actor";
@@ -48,6 +48,31 @@ export class NpcActor extends Actor {
         if (cloudsActor !== null && cloudsActor !== undefined && this.scene !== null && this.scene !== undefined) {
             this.scene.add(cloudsActor);
         }
+    }
+
+
+    /**
+     * Add a round proximity detector child actor.
+     *
+     * @param radius {number}
+     */
+    addDetector(radius: number) {
+        const detector = new Actor({
+            radius,
+        });
+        this.addChild(detector);
+        detector.on('collisionstart', (evt) => {
+            this.onDetector(evt);
+        })
+    }
+
+
+    /**
+     * When a detector detects a collision
+     * @param evt
+     */
+    onDetector(evt: CollisionStartEvent<Collider>): void {
+        Logger.getInstance().info(`[${evt.self.owner.name}] detected ${evt.other.owner.name}`)
     }
 
 

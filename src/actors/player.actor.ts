@@ -198,6 +198,10 @@ export class PlayerActor extends Actor implements Talkable {
     }
 
 
+    /**
+     * Implementation od Talkable interface
+     * @param message
+     */
     say(message: string): void {
         if (this.scene) {
             const msg = new EphemeralMessage({message, actor: this});
