@@ -14,10 +14,10 @@ export const game = new ex.Engine({
 
 
 export const status = {
-    // currently hovered actor
+    // currently hovered actor and timestamp of the last hovering
     selectedActor: {
         actor: null,
-        selectedAt: null,
+        selectedTs: null,
     }
 }
 

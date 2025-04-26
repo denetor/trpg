@@ -22,11 +22,11 @@ export class NpcActor extends Actor {
         // update currently selected actor in status
         this.on('pointerenter', () => {
             status.selectedActor.actor = this as any;
-            status.selectedActor.selectedAt = new Date() as any;
+            status.selectedActor.selectedTs = Date.now() as any;
         });
         this.on('pointerleave', () => {
             status.selectedActor.actor = null;
-            status.selectedActor.selectedAt = null;
+            status.selectedActor.selectedTs = null;
         });
     }
 

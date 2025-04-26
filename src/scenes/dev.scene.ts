@@ -1,6 +1,8 @@
 import {Actor, Engine, Logger, Scene} from "excalibur";
 import {Resources} from "../resources";
 import {PlayerActor} from "../actors/player.actor";
+import {status} from "../main";
+import {ActorMenu} from "../actors/ui/actor-menu";
 
 export class DevScene extends Scene {
     player: PlayerActor;
@@ -22,10 +24,15 @@ export class DevScene extends Scene {
         }
 
         // manage mouse click
-        engine.input.pointers.on('down', function (evt) {
+        engine.input.pointers.on('down', (evt) => {
             Logger.getInstance().info(`Clicked at position ${evt.coordinates.worldPos.x}, ${evt.coordinates.worldPos.y}`);
-            console.log({evt});
-            // TODO get npc or object clicked (if any)
+            // if actor is clicked, display actor menu
+            if (status && status.selectedActor && status.selectedActor.actor && status.selectedActor.selectedTs && Date.now()-1000 < status.selectedActor.selectedTs) {
+                const clickedActor = status.selectedActor.actor;
+                const menu = new ActorMenu(clickedActor, evt.coordinates.screenPos);
+                this.add(menu);
+                Logger.getInstance().info('Display actor menu')
+            }
             // TODO if no object or npc, go (straight) to position
             // TODO if hostile npc, "attack" by default
             // TODO if non-hostile npc, "talk" by default
