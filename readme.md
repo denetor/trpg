@@ -1,18 +1,27 @@
-# Excalibur Tiled Webpack Sample
+## NPCs AI
+NPCs AI is modeled, for now, with a finite state automata.
 
-Play sample [here](https://excaliburjs.com/sample-tiled-webpack)
 
-![sample-animation](./sample.gif)
+### Available states
+- idle: standing, waiting for someghing to happen
+- fight_player: fighting the player
+- chase_player: chasing the player until at fighting range
+- flee_player: fleeing from the player
+- talk: talking to the player
+- wandering: wandering without any goal
+- patrolling: patrolling between two points
 
-## Running locally
 
-* Using [nodejs](https://nodejs.org/en/) and [npm](https://www.npmjs.com/)
-* Run the `npm install` to install dependencies
-* Run the `npm run dev` to run the development server to test out changes
-   * [Webpack](https://webpack.js.org/) will build the [typescript](https://www.typescriptlang.org/) into javascript
-   * [Webpack dev server](https://webpack.js.org/configuration/dev-server/) will host the script in a little server on http://localhost:9000/
+Some NPCs can only be in a subset of all these states.
 
-## Building bundles
+Each NPC has a structure containing:
+- its available states
+- its current state
+- a list of variables and flags (eg. if the NPC has already spoken about some argument, or if the player has already done some peculiar action)
 
-* Run `npm run build:dev` to produce javascript bundles for debugging in the `dist/` folder
-* Run `npm run build:prod` to produce javascript bundles for production (minified) in the `dist/` folder
+### States transition
+Each state can transition to a subset of available states (eg. flee_player will never transition to idle or talk).
+### Nice to have:
+- The transition between states may have a priority value, so in case of multiple possibilities, the NPC will choose the one with the highest priority.
+- This priority can be modified by some NPC values, such as aggressivity (a deer always tries to flee), etc..
+

@@ -1,6 +1,8 @@
 import {EasingsService} from "../services/easings.service";
 import {Hittable} from "./hittable.interface";
-import {Logger} from "excalibur";
+import {Engine, Logger} from "excalibur";
+import {States} from "./states.enum";
+import {StateManager} from "./state-manager.model";
 
 
 export interface CharacterCreateOptions {
@@ -26,6 +28,10 @@ export class Character implements Hittable {
 
     // current status
     health: number;
+
+    // states management
+    availableStates = [States.IDLE, States.WANDER, States.FIGHT_PLAYER, States.CHASE_PLAYER, States.FLEE_PLAYER];
+    currentState = States.IDLE;
 
 
     constructor(options?: CharacterCreateOptions) {
@@ -59,5 +65,17 @@ export class Character implements Hittable {
             Logger.getInstance().info(`${this.constructor.name} took ${actualDamage} damage`);
         }
         return actualDamage;
+    }
+
+
+    /**
+     * Calculate next state and perform the action.
+     * This is called at each screen refresh.
+     * TODO: this should be called with an independent frequency from screen refresh, to free cpu resources
+     * @param engine
+     */
+    updateState(engine: Engine): void {
+        StateManager.updateState(engine, this);
+        // this.performAction(this.currentState, engine);
     }
 }
