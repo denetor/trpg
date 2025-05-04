@@ -14,5 +14,9 @@ export const Config = {
                 color: Color.Black,
             },
         })
+    },
+    game: {
+        // under this distance, consider the player nearby
+        closePlayerDistance: 100,
     }
 }

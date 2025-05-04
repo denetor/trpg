@@ -6,6 +6,7 @@ import {AnimationFactory} from "../../factories/animation.factory";
 import {Character} from "../../models/character.model";
 import {Talkable} from "../talkable.interface";
 import {EphemeralMessage} from "../misc/ephemeral-message.actor";
+import {States} from "../../models/states.enum";
 
 export class SlimeActor extends NpcActor implements Talkable {
     spriteSize: Vector;
@@ -20,8 +21,10 @@ export class SlimeActor extends NpcActor implements Talkable {
             name: 'crate',
         });
         this.model = new Character();
+        this.model.actor = this;
         this.z = 50;
         this.spriteSize = vec(16, 16);
+        this.model.availableStates = [States.IDLE, States.CHASE_PLAYER, States.FIGHT_PLAYER, States.FLEE_PLAYER];
     }
 
 

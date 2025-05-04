@@ -28,6 +28,9 @@ export class StateManager {
     static updateIdleState(engine: Engine, model: Character): void {
         // TODO if player is nearby, FLEE is available and health is low, change to FLEE
         // TODO if player is nearby, CHASE is available, player is over attack distance, change to CHASE
+        if (model.isPlayerNearby /* TODO terminare condizioni */) {
+            model.currentState = States.CHASE_PLAYER;
+        }
         // TODO if player is below attack distance, FIGHT is available, change to FIGHT
         // TODO if WANDER is available, and random test is passed, change to WANDER
         // else remain in current state
