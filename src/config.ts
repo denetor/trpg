@@ -16,13 +16,15 @@ export const Config = {
         })
     },
     game: {
+        // run AI routines only on actors within this radius from player
+        runAiRadius: 350,
         // under this distance, consider the player close
         nearbyPlayerDistance: 100,
         // probability that at a state update, the NPC will start/stop wandering instead of idling
-        wanderProbability: 0.05,
+        wanderProbability: 0.1,
         // probability that an NPC will stop fleeing after the player is no more nearby
-        stopFleeingProbability: 0.1,
+        stopFleeingProbability: 0.2,
         // probability that an NPC will stop chasing after the player is no more nearby
-        stopChasingProbability: 0.1,
+        stopChasingProbability: 0.2,
     }
 }

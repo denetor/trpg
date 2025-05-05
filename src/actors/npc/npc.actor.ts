@@ -43,7 +43,7 @@ export class NpcActor extends Actor {
      * @param {number} elapsed - The time elapsed since the last update, in milliseconds.
      * @return {void} This method does not return a value.
      */
-    onPreUpdate(engine: Engine, elapsed: number) {
+    onPreUpdate(engine: Engine, elapsed: number): void {
         super.onPreUpdate(engine, elapsed);
         if (this.model.health <= 0) {
             this.kill();
@@ -51,8 +51,9 @@ export class NpcActor extends Actor {
         if (this.lastAiUpdateElapsed >= NpcActor.AI_INTERVAL) {
             this.lastAiUpdateElapsed = 0;
             this.model.updateState(engine);
+        } else {
+            this.lastAiUpdateElapsed += elapsed;
         }
-        this.lastAiUpdateElapsed += elapsed;
     }
 
 

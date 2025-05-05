@@ -87,8 +87,9 @@ export class Character implements Hittable {
      */
     updateState(engine: Engine): void {
         this.updateStateVariables(engine);
-        StateManager.updateState(engine, this);
-        // this.performAction(this.currentState, engine);
+        if (this.playerDistance <= Config.game.runAiRadius) {
+            StateManager.updateState(engine, this);
+        }
     }
 
 

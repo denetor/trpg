@@ -13,6 +13,7 @@ export class StateManager {
      * @param model
      */
     static updateState(engine: Engine, model: Character): void {
+        console.log('updateState()');
         const previousState = model.currentState;
         switch (model.currentState) {
             case States.IDLE:
@@ -33,7 +34,7 @@ export class StateManager {
         }
         if (model.currentState !== previousState) {
             if ((model.actor as any)?.say && typeof (model.actor as any).say === 'function') {
-                (model.actor as any).say(`${model.currentState}`);
+                (model.actor as any).say(`${StateManager.getStateName(model.currentState)}`);
             } else {
                 console.log(`Actor ${model.constructor.name} switched from ${previousState} to ${model.currentState}`);
             }
@@ -169,6 +170,26 @@ export class StateManager {
      */
     static isStateAvailable(state: States, model: Character): boolean {
         return model.availableStates.includes(state);
+    }
+
+
+    static getStateName(state: States): string {
+        switch (state) {
+            case States.IDLE:
+                return 'IDLE';
+            case States.TALK:
+                return 'TALK';
+            case States.WANDER:
+                return 'WANDER';
+            case States.PATROL:
+                return 'PATROL';
+            case States.FIGHT_PLAYER:
+                return 'FIGHT_PLAYER';
+            case States.CHASE_PLAYER:
+                return 'CHASE_PLAYER';
+            case States.FLEE_PLAYER:
+                return 'FLEE_PLAYER';
+        }
     }
 
 
