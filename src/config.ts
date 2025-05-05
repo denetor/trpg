@@ -16,7 +16,13 @@ export const Config = {
         })
     },
     game: {
-        // under this distance, consider the player nearby
-        closePlayerDistance: 100,
+        // under this distance, consider the player close
+        nearbyPlayerDistance: 100,
+        // probability that at a state update, the NPC will start/stop wandering instead of idling
+        wanderProbability: 0.05,
+        // probability that an NPC will stop fleeing after the player is no more nearby
+        stopFleeingProbability: 0.1,
+        // probability that an NPC will stop chasing after the player is no more nearby
+        stopChasingProbability: 0.1,
     }
 }

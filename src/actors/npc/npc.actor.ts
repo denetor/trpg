@@ -8,7 +8,11 @@ import {status} from '../../main';
  * Generic NPC base class
  */
 export class NpcActor extends Actor {
+    // interval between AI runs
+    static AI_INTERVAL = 1000;
     model: Character = undefined as any;
+    // ms elapsed from last AI run
+    lastAiUpdateElapsed: number = 0;
 
 
     constructor(config?: ActorArgs) {
@@ -31,12 +35,24 @@ export class NpcActor extends Actor {
     }
 
 
-
+    /**
+     * This method is invoked before the update cycle for handling pre-update logic, such as AI state updates
+     * and checking the entity's health to determine if it should be removed.
+     *
+     * @param {Engine} engine - The game engine instance managing the current state of the game.
+     * @param {number} elapsed - The time elapsed since the last update, in milliseconds.
+     * @return {void} This method does not return a value.
+     */
     onPreUpdate(engine: Engine, elapsed: number) {
         super.onPreUpdate(engine, elapsed);
         if (this.model.health <= 0) {
             this.kill();
         }
+        if (this.lastAiUpdateElapsed >= NpcActor.AI_INTERVAL) {
+            this.lastAiUpdateElapsed = 0;
+            this.model.updateState(engine);
+        }
+        this.lastAiUpdateElapsed += elapsed;
     }
 
 

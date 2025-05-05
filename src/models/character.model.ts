@@ -19,6 +19,7 @@ export interface CharacterCreateOptions {
 export class Character implements Hittable {
     static INITIAL_ABILITY_VALUE = 40;
     static INITIAL_HEALTH = 100;
+    static FLEE_HEALTH = 20;
     static SPEED_MULTIPLIER = 50;
     // main stats
     strength: number;
@@ -80,7 +81,8 @@ export class Character implements Hittable {
     /**
      * Calculate next state and perform the action.
      * This is called at each screen refresh.
-     * TODO: this should be called with an independent frequency from screen refresh, to free cpu resources
+     *
+     * TODO: this should be called with an independent frequency from screen refresh, to free cpu and avoid dependancy of random probabilities from frame rate
      * @param engine
      */
     updateState(engine: Engine): void {
@@ -97,8 +99,8 @@ export class Character implements Hittable {
             this.playerPosition = player.pos;
             // update player nearby flag
             this.playerDistance = Vector.distance(this.actor.pos, player.pos);
-            this.isPlayerNearby = this.playerDistance < Config.game.closePlayerDistance;
+            this.isPlayerNearby = this.playerDistance < Config.game.nearbyPlayerDistance;
+            this.isPlayerAttackable = this.isPlayerNearby && this.playerDistance < 50;
         }
-        // TODO update player attackable flag
     }
 }
