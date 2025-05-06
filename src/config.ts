@@ -20,6 +20,8 @@ export const Config = {
         runAiRadius: 350,
         // under this distance, consider the player close
         nearbyPlayerDistance: 100,
+        // if not specified else, the default distance at wich the player is attachable by an NPC
+        defaultAttackablePlayerDistance: 25,
         // probability that at a state update, the NPC will start/stop wandering instead of idling
         wanderProbability: 0.1,
         // probability that an NPC will stop fleeing after the player is no more nearby

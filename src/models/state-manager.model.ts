@@ -173,6 +173,12 @@ export class StateManager {
     }
 
 
+    /**
+     * Gets the name of the provided state as a string.
+     *
+     * @param {States} state - The state for which to retrieve the name.
+     * @return {string} The name of the state.
+     */
     static getStateName(state: States): string {
         switch (state) {
             case States.IDLE:

@@ -82,7 +82,6 @@ export class Character implements Hittable {
      * Calculate next state and perform the action.
      * This is called at each screen refresh.
      *
-     * TODO: this should be called with an independent frequency from screen refresh, to free cpu and avoid dependancy of random probabilities from frame rate
      * @param engine
      */
     updateState(engine: Engine): void {
@@ -93,6 +92,12 @@ export class Character implements Hittable {
     }
 
 
+    /**
+     * Updates state variables related to the player's position, distance, and interaction with the actor.
+     *
+     * @param {Engine} engine - The game engine instance containing the current scene and actors.
+     * @return {void} Does not return a value but updates internal state variables.
+     */
     updateStateVariables(engine: Engine) {
         // update player position
         const player = engine.currentScene.actors.find(a => a.name === 'player');
@@ -101,7 +106,7 @@ export class Character implements Hittable {
             // update player nearby flag
             this.playerDistance = Vector.distance(this.actor.pos, player.pos);
             this.isPlayerNearby = this.playerDistance < Config.game.nearbyPlayerDistance;
-            this.isPlayerAttackable = this.isPlayerNearby && this.playerDistance < 50;
+            this.isPlayerAttackable = this.isPlayerNearby && this.playerDistance < Config.game.defaultAttackablePlayerDistance;
         }
     }
 }

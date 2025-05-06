@@ -3,13 +3,14 @@ import {ItemDestroyedActor} from "../misc/item-destroyed.actor";
 import {Character} from "../../models/character.model";
 import {ActorArgs} from "excalibur/build/dist/Actor";
 import {status} from '../../main';
+import {States} from "../../models/states.enum";
 
 /**
  * Generic NPC base class
  */
 export class NpcActor extends Actor {
     // interval between AI runs
-    static AI_INTERVAL = 1000;
+    static AI_INTERVAL = 100;
     model: Character = undefined as any;
     // ms elapsed from last AI run
     lastAiUpdateElapsed: number = 0;
@@ -54,10 +55,17 @@ export class NpcActor extends Actor {
         } else {
             this.lastAiUpdateElapsed += elapsed;
         }
+        this.doAction(engine, elapsed);
     }
 
 
-
+    /**
+     * Handles the actions to be performed immediately after the object is "killed" or destroyed within a scene.
+     * This method invokes the parent `onPostKill` logic and adds a transitory animation, such as a "dust" effect.
+     *
+     * @param {Scene} scene - The current scene where the object was destroyed.
+     * @return {void} This method does not return a value.
+     */
     onPostKill(scene: Scene) {
         super.onPostKill(scene);
         // add transitory "dust" animation
@@ -90,6 +98,37 @@ export class NpcActor extends Actor {
      */
     onDetector(evt: CollisionStartEvent<Collider>): void {
         Logger.getInstance().info(`[${evt.self.owner.name}] detected ${evt.other.owner.name}`)
+    }
+
+
+    /**
+     * Executes (or keeps executing) an action
+     *
+     * @param engine
+     * @param elapsed
+     */
+    doAction(engine: Engine, elapsed: number): void {
+        switch (this.model.currentState) {
+            case States.CHASE_PLAYER:
+                this.doChasePlayer();
+                break;
+            case States.FLEE_PLAYER:
+                break;
+            case States.FIGHT_PLAYER:
+                break;
+            case States.IDLE:
+            default:
+                // do nothing
+        }
+    }
+
+
+    /**
+     * Chases the player
+     */
+    doChasePlayer(): void {
+        this.actions.clearActions();
+        this.actions.moveTo(this.model.playerPosition, this.model.getWalkSpeed());
     }
 
 
