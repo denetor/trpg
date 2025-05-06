@@ -63,7 +63,7 @@ export class SlimeActor extends NpcActor implements Talkable {
      * @param message
      */
     say(message: string): void {
-        console.log(`say(${message})`);
+        console.log(`${this.constructor.name} says: ${message}`);
         if (this.scene) {
             const msg = new EphemeralMessage({message, actor: this});
             this.scene.add(msg);
