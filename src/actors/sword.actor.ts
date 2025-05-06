@@ -71,12 +71,12 @@ export class SwordActor extends Actor {
                     if (this.scene !== null && this.scene !== undefined) {
                         this.scene.add(damageLabel);
                     }
+                    // spawn hit animation
+                    const hitActor = new SwordHitActor({x: contact.points[0].x, y: contact.points[0].y});
+                    if (hitActor !== null && hitActor !== undefined && this.scene !== null && this.scene !== undefined) {
+                        this.scene.add(hitActor);
+                    }
                 }
-            }
-            // spawn hit animation
-            const hitActor = new SwordHitActor({x: contact.points[0].x, y: contact.points[0].y});
-            if (hitActor !== null && hitActor !== undefined && this.scene !== null && this.scene !== undefined) {
-                this.scene.add(hitActor);
             }
         }
     }
