@@ -7,6 +7,7 @@ import {Character} from "../../models/character.model";
 import {Talkable} from "../talkable.interface";
 import {EphemeralMessage} from "../misc/ephemeral-message.actor";
 import {States} from "../../models/states.enum";
+import {Slime} from "../../models/npcs/slime.model";
 
 export class SlimeActor extends NpcActor implements Talkable {
     spriteSize: Vector;
@@ -21,7 +22,7 @@ export class SlimeActor extends NpcActor implements Talkable {
             name: 'crate',
         });
         this.aiInterval = 1000;
-        this.model = new Character();
+        this.model = new Slime();
         this.model.actor = this;
         this.z = 50;
         this.spriteSize = vec(16, 16);
