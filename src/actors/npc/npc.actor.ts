@@ -1,9 +1,10 @@
-import {Actor, Collider, CollisionStartEvent, Engine, Logger, Scene} from "excalibur";
+import {Actor, Collider, CollisionStartEvent, Engine, Logger, Scene, vec} from "excalibur";
 import {ItemDestroyedActor} from "../misc/item-destroyed.actor";
 import {Character} from "../../models/character.model";
 import {ActorArgs} from "excalibur/build/dist/Actor";
 import {status} from '../../main';
 import {States} from "../../models/states.enum";
+import {Config} from '../../config';
 
 /**
  * Generic NPC base class
@@ -113,6 +114,7 @@ export class NpcActor extends Actor {
                 this.doChasePlayer();
                 break;
             case States.FLEE_PLAYER:
+                this.doFleeFromPlayer();
                 break;
             case States.FIGHT_PLAYER:
                 break;
@@ -124,11 +126,24 @@ export class NpcActor extends Actor {
 
 
     /**
-     * Chases the player
+     * Chases the player: move towards him
      */
     doChasePlayer(): void {
         this.actions.clearActions();
         this.actions.moveTo(this.model.playerPosition, this.model.getWalkSpeed());
+    }
+
+
+    /**
+     * Flee from player: move in opposite direction. Stops when player is no more nearby
+     */
+    doFleeFromPlayer(): void {
+        this.actions.clearActions();
+        const targetPosition = vec(
+            Math.min(Config.game.nearbyPlayerDistance, Math.abs(this.model.playerPosition.x - this.pos.x)) * (this.model.playerPosition.x > this.pos.x ? -1 : 1) + this.pos.x,
+            Math.min(Config.game.nearbyPlayerDistance, Math.abs(this.model.playerPosition.y - this.pos.y)) * (this.model.playerPosition.y > this.pos.y ? -1 : 1) + this.pos.y
+        );
+        this.actions.moveTo(targetPosition, this.model.getWalkSpeed());
     }
 
 
