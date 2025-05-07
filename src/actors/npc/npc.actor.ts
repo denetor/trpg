@@ -10,7 +10,7 @@ import {States} from "../../models/states.enum";
  */
 export class NpcActor extends Actor {
     // interval between AI runs
-    static AI_INTERVAL = 100;
+    aiInterval: number = 100;
     model: Character = undefined as any;
     // ms elapsed from last AI run
     lastAiUpdateElapsed: number = 0;
@@ -49,7 +49,7 @@ export class NpcActor extends Actor {
         if (this.model.health <= 0) {
             this.kill();
         }
-        if (this.lastAiUpdateElapsed >= NpcActor.AI_INTERVAL) {
+        if (this.lastAiUpdateElapsed >= this.aiInterval) {
             this.lastAiUpdateElapsed = 0;
             this.model.updateState(engine);
         } else {

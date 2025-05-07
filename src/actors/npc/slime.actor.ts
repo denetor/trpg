@@ -20,6 +20,7 @@ export class SlimeActor extends NpcActor implements Talkable {
             collisionType: ex.CollisionType.Active,
             name: 'crate',
         });
+        this.aiInterval = 1000;
         this.model = new Character();
         this.model.actor = this;
         this.z = 50;
