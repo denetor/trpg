@@ -42,6 +42,9 @@ export class Character implements Hittable {
     playerDistance: number = null as any;
     isPlayerNearby = false;
     isPlayerAttackable = false;
+    // wandering variables
+    wanderCenter: Vector = undefined as any;
+    wanderDestination: Vector = undefined as any;
 
 
     constructor(options?: CharacterCreateOptions) {

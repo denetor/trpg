@@ -10,6 +10,6 @@ export class Slime extends Character {
         this.health = 50;
         this.maxHealth = this.health;
         this.armor = 0;
-        this.availableStates = [States.IDLE, States.FIGHT_PLAYER, States.CHASE_PLAYER, States.FLEE_PLAYER];
+        this.availableStates = [States.IDLE, States.WANDER, States.FIGHT_PLAYER, States.CHASE_PLAYER, States.FLEE_PLAYER];
     }
 }

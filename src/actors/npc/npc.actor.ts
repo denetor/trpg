@@ -53,10 +53,10 @@ export class NpcActor extends Actor {
         if (this.lastAiUpdateElapsed >= this.aiInterval) {
             this.lastAiUpdateElapsed = 0;
             this.model.updateState(engine);
+            this.doAction(engine, elapsed);
         } else {
             this.lastAiUpdateElapsed += elapsed;
         }
-        this.doAction(engine, elapsed);
     }
 
 
@@ -118,6 +118,9 @@ export class NpcActor extends Actor {
                 break;
             case States.FIGHT_PLAYER:
                 break;
+            case States.WANDER:
+                this.doWander();
+                break;
             case States.IDLE:
             default:
                 // do nothing
@@ -144,6 +147,37 @@ export class NpcActor extends Actor {
             Math.min(Config.game.nearbyPlayerDistance, Math.abs(this.model.playerPosition.y - this.pos.y)) * (this.model.playerPosition.y > this.pos.y ? -1 : 1) + this.pos.y
         );
         this.actions.moveTo(targetPosition, this.model.getWalkSpeed());
+    }
+
+
+    /**
+     * Executes the wandering behavior for an NPC. Sets a random destination if none exists,
+     * moves the NPC toward the destination, and resets the destination upon completion.
+     * It ensures that the NPC continues to wander within the specified range.
+     *
+     * @return {void} No return value. The method modifies the NPC's state and actions internally.
+     */
+    doWander(): void {
+        // if have no wandering center, set a new one
+        if (!this.model.wanderCenter) {
+            this.model.wanderCenter = vec(this.pos.x, this.pos.y);
+        }
+        // set a destination, if missing
+        if (!this.model.wanderDestination) {
+            this.model.wanderDestination = vec(
+                this.model.wanderCenter.x + Math.random() * Config.game.wanderingRadius - Config.game.wanderingRadius / 2,
+                this.model.wanderCenter.y + Math.random() * Config.game.wanderingRadius - Config.game.wanderingRadius / 2
+            );
+        }
+        // reset destination when done. NPC will create a new one at the next round
+        if (this.model.wanderDestination && this.model.wanderDestination.x === this.pos.x && this.model.wanderDestination.y === this.pos.y) {
+            this.model.wanderDestination = undefined as any;
+        } else if (this.model.wanderDestination) {
+            // go to destination
+            this.actions.clearActions();
+            this.actions.moveTo(this.model.wanderDestination, this.model.getWalkSpeed() / 2);
+        }
+        // TODO if too much time is spent to reach destination, reset it (maybe this is not needed)
     }
 
 

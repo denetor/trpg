@@ -26,7 +26,7 @@ export class SlimeActor extends NpcActor implements Talkable {
         this.model.actor = this;
         this.z = 50;
         this.spriteSize = vec(16, 16);
-        this.model.availableStates = [States.IDLE, States.CHASE_PLAYER, States.FIGHT_PLAYER, States.FLEE_PLAYER];
+        this.model.availableStates = [States.IDLE, States.WANDER, States.CHASE_PLAYER, States.FIGHT_PLAYER, States.FLEE_PLAYER];
     }
 
 

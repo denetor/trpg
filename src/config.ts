@@ -24,6 +24,8 @@ export const Config = {
         defaultAttackablePlayerDistance: 25,
         // probability that at a state update, the NPC will start/stop wandering instead of idling
         wanderProbability: 0.1,
+        // radius where the NPC should stay when wandering randomly
+        wanderingRadius: 50,
         // probability that an NPC will stop fleeing after the player is no more nearby
         stopFleeingProbability: 0.2,
         // probability that an NPC will stop chasing after the player is no more nearby
