@@ -24,7 +24,7 @@ export interface ItemCreateOptions {
 
 
 /**
- * Base class fort any item
+ * Base class for any item
  */
 export class Item implements Hittable {
     static INITIAL_HEALTH = 100;

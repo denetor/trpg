@@ -5,6 +5,7 @@ import {ActorArgs} from "excalibur/build/dist/Actor";
 import {status} from '../../main';
 import {States} from "../../models/states.enum";
 import {Config} from '../../config';
+import {MissileActor} from "../weapons/missile.actor";
 
 /**
  * Generic NPC base class
@@ -15,6 +16,7 @@ export class NpcActor extends Actor {
     model: Character = undefined as any;
     // ms elapsed from last AI run
     lastAiUpdateElapsed: number = 0;
+    attackTimeout: number = 0;
 
 
     constructor(config?: ActorArgs) {
@@ -22,6 +24,13 @@ export class NpcActor extends Actor {
     }
 
 
+    /**
+     * Initializes the actor and sets up event listeners for pointer interactions.
+     * This method is called during the initialization phase of the engine lifecycle.
+     *
+     * @param {Engine} engine - The current instance of the game engine.
+     * @return {void} Does not return a value.
+     */
     onInitialize(engine: Engine) {
         super.onInitialize(engine);
 
@@ -117,6 +126,7 @@ export class NpcActor extends Actor {
                 this.doFleeFromPlayer();
                 break;
             case States.FIGHT_PLAYER:
+                this.doFightPlayer(elapsed);
                 break;
             case States.WANDER:
                 this.doWander();
@@ -178,6 +188,43 @@ export class NpcActor extends Actor {
             this.actions.moveTo(this.model.wanderDestination, this.model.getWalkSpeed() / 2);
         }
         // TODO if too much time is spent to reach destination, reset it (maybe this is not needed)
+    }
+
+
+    doFightPlayer(elapsedMs: number): void {
+        this.attackTimeout -= elapsedMs;
+        // if next attack timeout is nopt timed out, exit
+        if (this.attackTimeout > 0) {
+            return;
+        }
+        // if missile weapon is available, fire missile and set next attack timeout
+        if (this.hasMissileWeapon() && this.scene) {
+            // spawn a missile ammo at npc position and set action to current player position
+            const missile = new MissileActor({x: this.pos.x, y: this.pos.y, destination: this.model.playerPosition});
+            this.scene.add(missile);
+            Logger.getInstance().info(`[${this.name}] fired missile at (${this.model.playerPosition.x}, ${this.model.playerPosition.y})`);
+            this.attackTimeout = 1000; // TODO ease considering weapon speed and player agility
+        }
+    }
+
+
+    /**
+     * Determines if the entity is equipped with a missile weapon.
+     * @return {boolean} Returns true if the entity has a missile weapon, otherwise false.
+     */
+    hasMissileWeapon(): boolean {
+        return true;
+    }
+
+
+    /**
+     * Determines if there is a contact weapon available.
+     * Typically used to check if an entity possesses a weapon that requires physical contact to be effective.
+     *
+     * @return {boolean} Returns true if a contact weapon is available, false otherwise.
+     */
+    hasContactWeapon(): boolean {
+        return true;
     }
 
 
