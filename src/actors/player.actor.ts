@@ -208,4 +208,16 @@ export class PlayerActor extends Actor implements Talkable {
             this.scene.add(msg);
         }
     }
+
+
+    // this actor has been hit by a weapon or missile
+    takeHit(weapon: Actor): void {
+        if (weapon && (weapon as any)?.damage) {
+            this.model.takeHit((weapon as any)?.damage);
+        }
+        if (weapon.name === 'missile') {
+            weapon.kill();
+        }
+    }
+
 }

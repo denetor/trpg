@@ -101,7 +101,7 @@ export class Character implements Hittable {
      * @param {Engine} engine - The game engine instance containing the current scene and actors.
      * @return {void} Does not return a value but updates internal state variables.
      */
-    updateStateVariables(engine: Engine) {
+    updateStateVariables(engine: Engine): void {
         // update player position
         const player = engine.currentScene.actors.find(a => a.name === 'player');
         if (player) {

@@ -16,7 +16,7 @@ export class NpcActor extends Actor {
     model: Character = undefined as any;
     // ms elapsed from last AI run
     lastAiUpdateElapsed: number = 0;
-    attackTimeout: number = 0;
+    canAttackAgain: boolean = true;
 
 
     constructor(config?: ActorArgs) {
@@ -126,7 +126,7 @@ export class NpcActor extends Actor {
                 this.doFleeFromPlayer();
                 break;
             case States.FIGHT_PLAYER:
-                this.doFightPlayer(elapsed);
+                this.doFightPlayer(engine);
                 break;
             case States.WANDER:
                 this.doWander();
@@ -191,19 +191,22 @@ export class NpcActor extends Actor {
     }
 
 
-    doFightPlayer(elapsedMs: number): void {
-        this.attackTimeout -= elapsedMs;
-        // if next attack timeout is nopt timed out, exit
-        if (this.attackTimeout > 0) {
+    doFightPlayer(engine: Engine): void {
+        // if the next attack timeout is nopt timed out, exit
+        if (!this.canAttackAgain) {
             return;
         }
-        // if missile weapon is available, fire missile and set next attack timeout
+        // if any missile weapon is available, fire missile and set next attack timeout
         if (this.hasMissileWeapon() && this.scene) {
-            // spawn a missile ammo at npc position and set action to current player position
+            // spawn a missile ammo at npc position and set action to the current player position
             const missile = new MissileActor({x: this.pos.x, y: this.pos.y, destination: this.model.playerPosition});
             this.scene.add(missile);
             Logger.getInstance().info(`[${this.name}] fired missile at (${this.model.playerPosition.x}, ${this.model.playerPosition.y})`);
-            this.attackTimeout = 1000; // TODO ease considering weapon speed and player agility
+            // timer for the next attack
+            this.canAttackAgain = false;
+            engine.clock.schedule(() => {
+                this.canAttackAgain = true;
+            }, 1000);   // TODO new attack time depends on weapon and npc agility value
         }
     }
 
@@ -213,6 +216,7 @@ export class NpcActor extends Actor {
      * @return {boolean} Returns true if the entity has a missile weapon, otherwise false.
      */
     hasMissileWeapon(): boolean {
+        // TODO real test, ammunition qty included
         return true;
     }
 
