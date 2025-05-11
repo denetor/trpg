@@ -191,6 +191,13 @@ export class NpcActor extends Actor {
     }
 
 
+    /**
+     * Executes the NPC's attack logic in a combat scenario with the player.
+     * If the NPC has a missile weapon available and is able to attack, it will spawn a missile aimed at the player's current position.
+     *
+     * @param {Engine} engine - The game engine used to manage game state, including scheduling future actions and handling scenes.
+     * @return {void} This method does not return a value.
+     */
     doFightPlayer(engine: Engine): void {
         // if the next attack timeout is nopt timed out, exit
         if (!this.canAttackAgain) {

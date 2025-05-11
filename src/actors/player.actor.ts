@@ -19,6 +19,8 @@ import {ContactAttackStatus} from "./contact-attack-status.enum";
 import {ScreenMessage} from "./ui/screen-message";
 import {Talkable} from "./talkable.interface";
 import {EphemeralMessage} from "./misc/ephemeral-message.actor";
+import {SwordHitActor} from "./misc/sword-hit.actor";
+import {DamageLabel} from "./misc/damage-label.actor";
 
 export class PlayerActor extends Actor implements Talkable {
     model: Player;
@@ -213,7 +215,12 @@ export class PlayerActor extends Actor implements Talkable {
     // this actor has been hit by a weapon or missile
     takeHit(weapon: Actor): void {
         if (weapon && (weapon as any)?.damage) {
-            this.model.takeHit((weapon as any)?.damage);
+            const damage = (weapon as any)?.damage;
+            this.model.takeHit(damage);
+            const damageLabel = new DamageLabel({damage, pos: vec(this.pos.x, this.pos.y)});
+            if (this.scene !== null && this.scene !== undefined) {
+                this.scene.add(damageLabel);
+            }
         }
         if (weapon.name === 'missile') {
             weapon.kill();
