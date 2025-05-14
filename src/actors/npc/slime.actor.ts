@@ -24,6 +24,7 @@ export class SlimeActor extends NpcActor implements Talkable {
             name: 'crate',
         });
         this.aiInterval = 100;
+        this.rangedAttackInterval = 5000;
         this.model = new Slime();
         this.model.actor = this;
         this.z = 50;
@@ -63,7 +64,7 @@ export class SlimeActor extends NpcActor implements Talkable {
 
 
     /**
-     * Implementation od Talkable interface
+     * Implementation of Talkable interface
      * @param message
      */
     say(message: string): void {

@@ -17,6 +17,7 @@ export class NpcActor extends Actor {
     // ms elapsed from last AI run
     lastAiUpdateElapsed: number = 0;
     canAttackAgain: boolean = true;
+    rangedAttackInterval: number = 1000;
 
 
     constructor(config?: ActorArgs) {
@@ -214,7 +215,7 @@ export class NpcActor extends Actor {
             this.canAttackAgain = false;
             engine.clock.schedule(() => {
                 this.canAttackAgain = true;
-            }, 1000);   // TODO new attack time depends on weapon and npc agility value
+            }, this.rangedAttackInterval);
         }
     }
 

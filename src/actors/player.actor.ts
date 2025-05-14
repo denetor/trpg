@@ -228,7 +228,9 @@ export class PlayerActor extends Actor implements Talkable {
             if (this.scene !== null && this.scene !== undefined) {
                 this.scene.add(damageLabel);
                 const shakeEntity = (damage / this.model.health * 100) / 25;
-                this.scene.camera.shake(shakeEntity, shakeEntity, 100);
+                if (shakeEntity > 1) {
+                    this.scene.camera.shake(shakeEntity, shakeEntity, 100);
+                }
             }
         }
         if (weapon.name === 'missile') {
