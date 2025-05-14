@@ -257,6 +257,7 @@
   <object id="22" name="slime" type="pngSlime" gid="421" x="70.5" y="62.5" width="48" height="48"/>
   <object id="23" name="slime" type="pngSlime" gid="421" x="26" y="84.5" width="48" height="48"/>
   <object id="24" name="slime" type="pngSlime" gid="421" x="140" y="112" width="48" height="48"/>
+  <object id="25" name="merchant" type="npcMerchant" gid="261" x="464" y="846" width="16" height="16"/>
   <object id="25" name="escansibar" type="swordEscansibar" gid="261" x="464" y="946" width="16" height="16"/>
  </objectgroup>
 </map>

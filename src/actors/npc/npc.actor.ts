@@ -13,9 +13,9 @@ import {MissileActor} from "../weapons/missile.actor";
 export class NpcActor extends Actor {
     // interval between AI runs
     aiInterval: number = 100;
-    model: Character = undefined as any;
     // ms elapsed from last AI run
     lastAiUpdateElapsed: number = 0;
+    model: Character = undefined as any;
     canAttackAgain: boolean = true;
     rangedAttackInterval: number = 1000;
 

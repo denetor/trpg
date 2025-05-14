@@ -1,19 +1,14 @@
 import {NpcActor} from "./npc.actor";
 import * as ex from "excalibur";
 import {Collider, CollisionStartEvent, Engine, Logger, SpriteSheet, vec, Vector} from "excalibur";
+import {States} from "../../models/states.enum";
+import {Character} from "../../models/character.model";
 import {Resources} from "../../resources";
 import {AnimationFactory} from "../../factories/animation.factory";
-import {Character} from "../../models/character.model";
-import {Talkable} from "../talkable.interface";
 import {EphemeralMessage} from "../misc/ephemeral-message.actor";
-import {States} from "../../models/states.enum";
-import {Slime} from "../../models/npcs/slime.model";
-import {MissileActor} from "../weapons/missile.actor";
-import {SlimeSplatActor} from "../weapons/slime-splat.actor";
 
-export class SlimeActor extends NpcActor implements Talkable {
+export class MerchantActor extends NpcActor {
     spriteSize: Vector;
-
 
     constructor(pos: ex.Vector) {
         super({
@@ -21,15 +16,14 @@ export class SlimeActor extends NpcActor implements Talkable {
             width: 16,
             height: 16,
             collisionType: ex.CollisionType.Active,
-            name: 'slime',
+            name: 'merchant',
         });
-        this.aiInterval = 100;
-        this.rangedAttackInterval = 5000;
-        this.model = new Slime();
+        this.aiInterval = 250;
+        this.model = new Character();
         this.model.actor = this;
         this.z = 50;
         this.spriteSize = vec(16, 16);
-        this.model.availableStates = [States.IDLE, States.WANDER, States.CHASE_PLAYER, States.FIGHT_PLAYER, States.FLEE_PLAYER];
+        this.model.availableStates = [States.IDLE, States.WANDER, States.FLEE_PLAYER];
     }
 
 
@@ -46,7 +40,6 @@ export class SlimeActor extends NpcActor implements Talkable {
         });
         this.graphics.add('idleN', AnimationFactory.createScaled({spriteSheet, targetSize: vec(this.spriteSize.x,this.spriteSize.y), frames: [{ x: 0, y: 0, duration: 500 },{ x: 1, y: 0, duration: 500 }]}));
         this.graphics.use('idleN');
-
         this.addDetector(100);
     }
 
@@ -58,7 +51,7 @@ export class SlimeActor extends NpcActor implements Talkable {
     onDetector(evt: CollisionStartEvent<Collider>): void {
         if (evt.other.owner.name === 'player') {
             Logger.getInstance().info(`[${evt.self.owner.name}] detected ${evt.other.owner.name}`)
-            this.say('Hi, player');
+            this.say('Hi, need to buy something?');
         }
     }
 
@@ -74,18 +67,5 @@ export class SlimeActor extends NpcActor implements Talkable {
             this.scene.add(msg);
         }
     }
-
-
-    /**
-     * Create a MissileActor instance configured with the given position and destination.
-     *
-     * @param {Vector} pos - The starting position of the missile.
-     * @param {Vector} destination - The target destination of the missile.
-     * @return {MissileActor} A MissileActor instance set up with the provided parameters.
-     */
-    getMissileActor(pos: Vector, destination: Vector): MissileActor {
-        return new SlimeSplatActor({x: pos.x, y: pos.y, destination, damage: 10});
-    }
-
 
 }

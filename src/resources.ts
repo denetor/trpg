@@ -9,6 +9,7 @@ import slimeSpriteSheetPath from '../img/Solaria Demo Pack Update 03/Solaria Dem
 import {PlayerActorFactory} from "./factories/playerActorFactory";
 import {CrateActorFactory} from "./factories/crateActorFactory";
 import {SlimeActorFactory} from "./factories/slimeActorFactory";
+import {MerchantActorFactory} from "./factories/merchantActorFactory";
 
 
 
@@ -24,6 +25,7 @@ export const Resources = {
             playeractor: PlayerActorFactory.create,
             crate: CrateActorFactory.create,
             pngSlime: SlimeActorFactory.create,
+            npcMerchant: MerchantActorFactory.create,
             //pngSlimeFriendly: SlimeActorFactory.create,
         },
     })
