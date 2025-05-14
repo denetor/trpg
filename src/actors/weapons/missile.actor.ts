@@ -44,6 +44,16 @@ export class MissileActor extends Actor {
     }
 
 
+    /**
+     * Handles logic when a collision begins between two colliders.
+     * If hits the player, consider him hit
+     *
+     * @param {Collider} self - The collider instance that triggered the collision.
+     * @param {Collider} other - The collider instance that was collided with.
+     * @param {Side} side - The side of the collision relative to the `self` collider.
+     * @param {CollisionContact} contact - Detailed contact information of the collision.
+     * @return {void} This method does not return a value.
+     */
     onCollisionStart(self: Collider, other: Collider, side: Side, contact: CollisionContact) {
         super.onCollisionStart(self, other, side, contact);
         Logger.getInstance().info(`${this.name} hit ${other.owner.name}`);

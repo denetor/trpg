@@ -212,7 +212,14 @@ export class PlayerActor extends Actor implements Talkable {
     }
 
 
-    // this actor has been hit by a weapon or missile
+    /**
+     * Handles the action when the current actor takes a hit from a weapon.
+     * Manages applying damage, displaying a damage label, and specific interactions like destroying a missile.
+     *
+     * @param {Actor} weapon - The weapon object that inflicted the hit. The weapon must have a `damage` property.
+     *                         Specific actions are taken if the weapon's name is 'missile'.
+     * @return {void} Does not return any value.
+     */
     takeHit(weapon: Actor): void {
         if (weapon && (weapon as any)?.damage) {
             const damage = (weapon as any)?.damage;
@@ -220,6 +227,8 @@ export class PlayerActor extends Actor implements Talkable {
             const damageLabel = new DamageLabel({damage, pos: vec(this.pos.x, this.pos.y)});
             if (this.scene !== null && this.scene !== undefined) {
                 this.scene.add(damageLabel);
+                const shakeEntity = (damage / this.model.health * 100) / 25;
+                this.scene.camera.shake(shakeEntity, shakeEntity, 100);
             }
         }
         if (weapon.name === 'missile') {

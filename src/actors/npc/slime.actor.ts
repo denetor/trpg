@@ -8,6 +8,8 @@ import {Talkable} from "../talkable.interface";
 import {EphemeralMessage} from "../misc/ephemeral-message.actor";
 import {States} from "../../models/states.enum";
 import {Slime} from "../../models/npcs/slime.model";
+import {MissileActor} from "../weapons/missile.actor";
+import {SlimeSplatActor} from "../weapons/slime-splat.actor";
 
 export class SlimeActor extends NpcActor implements Talkable {
     spriteSize: Vector;
@@ -70,6 +72,18 @@ export class SlimeActor extends NpcActor implements Talkable {
             const msg = new EphemeralMessage({message, actor: this});
             this.scene.add(msg);
         }
+    }
+
+
+    /**
+     * Retrieves a MissileActor instance configured with the given position and destination.
+     *
+     * @param {Vector} pos - The starting position of the missile.
+     * @param {Vector} destination - The target destination of the missile.
+     * @return {MissileActor} A MissileActor instance set up with the provided parameters.
+     */
+    getMissileActor(pos: Vector, destination: Vector): MissileActor {
+        return new SlimeSplatActor({x: pos.x, y: pos.y, destination, damage: 10});
     }
 
 

@@ -1,4 +1,4 @@
-import {Actor, Collider, CollisionStartEvent, Engine, Logger, Scene, vec} from "excalibur";
+import {Actor, Collider, CollisionStartEvent, Engine, Logger, Scene, vec, Vector} from "excalibur";
 import {ItemDestroyedActor} from "../misc/item-destroyed.actor";
 import {Character} from "../../models/character.model";
 import {ActorArgs} from "excalibur/build/dist/Actor";
@@ -206,7 +206,8 @@ export class NpcActor extends Actor {
         // if any missile weapon is available, fire missile and set next attack timeout
         if (this.hasMissileWeapon() && this.scene) {
             // spawn a missile ammo at npc position and set action to the current player position
-            const missile = new MissileActor({x: this.pos.x, y: this.pos.y, destination: this.model.playerPosition});
+            // const missile = new MissileActor({x: this.pos.x, y: this.pos.y, destination: this.model.playerPosition});
+            const missile = this.getMissileActor(this.pos, this.model.playerPosition);
             this.scene.add(missile);
             Logger.getInstance().info(`[${this.name}] fired missile at (${this.model.playerPosition.x}, ${this.model.playerPosition.y})`);
             // timer for the next attack
@@ -215,6 +216,19 @@ export class NpcActor extends Actor {
                 this.canAttackAgain = true;
             }, 1000);   // TODO new attack time depends on weapon and npc agility value
         }
+    }
+
+
+    /**
+     * Creates and returns a new MissileActor object initialized with the specified position and destination.
+     * Overwrite in subclasses to change the missile and not the logic
+     *
+     * @param {Vector} pos - The starting position of the missile, represented as a Vector object.
+     * @param {Vector} destination - The target destination of the missile, represented as a Vector object.
+     * @return {MissileActor} A new instance of the MissileActor class configured with the given position and destination.
+     */
+    getMissileActor(pos: Vector, destination: Vector): MissileActor {
+        return new MissileActor({x: pos.x, y: pos.y, destination});
     }
 
 
