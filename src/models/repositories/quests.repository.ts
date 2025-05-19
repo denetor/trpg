@@ -63,4 +63,27 @@ export class QuestsRepository {
             ],
         }
     ];
+
+
+    /**
+     * Retrieves all available quests.
+     *
+     * @return {Quest[]} An array containing all quests.
+     */
+    all(): Quest[] {
+        return this.quests;
+    }
+
+
+    /**
+     * Retrieves a quest by its unique identifier.
+     *
+     * @param {string} id - The unique identifier of the quest to retrieve.
+     * @return {Quest|undefined} The quest with the matching ID, or undefined if no quest is found.
+     */
+    get(id: string): Quest | undefined {
+        return this.quests.find(q => q.id === id);
+    }
+
+
 }
