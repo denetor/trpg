@@ -63,6 +63,25 @@ export class QuestManagerService {
         return undef
     }
 
+
     // TODO test if quest stage conditions are met
+    testPreconditions(stage: QuestStage): boolean {
+        if (!stage || !stage.preconditions || !stage.preconditions.length > 0) {
+            return true;
+        }
+        for (const precondition of stage.preconditions) {
+            // TODO implement precondition tests
+        }
+    }
+
+
     // TODO apply actions upon stage completion
+    onComplete(stage: QuestStage): void {
+        if (!stage || !stage.onComplete || !stage.onComplete.length > 0) {
+            return;
+        }
+        for (let task of stage.onComplete) {
+            // TODO implement task actions
+        }
+    }
 }
