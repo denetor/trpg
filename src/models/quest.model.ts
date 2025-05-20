@@ -10,6 +10,16 @@ export class Quest {
     stages: QuestStage[];
     // precondition to start the quest
     preconditions: any[];
+
+    constructor() {
+        this.id = null as any;
+        this.name = null as any;
+        this.logEntry = null as any;
+        this.category = null as any;
+        this.factionId = null as any;
+        this.stages = [];
+        this.preconditions = [];
+    }
 }
 
 export class QuestStage {
@@ -17,4 +27,11 @@ export class QuestStage {
     logEntry: string;
     preconditions?: any[];
     onComplete?: any[];
+
+    constructor() {
+        this.id = null as any;
+        this.logEntry = '';
+        this.preconditions = [];
+        this.onComplete = [];
+    }
 }

@@ -5,6 +5,12 @@ export class QuestStatus {
     currentStage: number;
 
 
+    constructor() {
+        this.id = null as any;
+        this.currentStage = null as any;
+    }
+
+
     /**
      * Converts a Quest object into a QuestStatus instance.
      *
@@ -24,4 +30,9 @@ export class QuestStatus {
 export class ActiveQuest {
     quest: Quest;
     status: QuestStatus;
+
+    constructor() {
+        this.quest = null as any;
+        this.status = null as any;
+    }
 }
