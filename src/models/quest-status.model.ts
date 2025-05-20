@@ -18,3 +18,10 @@ export class QuestStatus {
         return qs;
     }
 }
+
+
+
+export class ActiveQuest {
+    quest: Quest;
+    status: QuestStatus;
+}

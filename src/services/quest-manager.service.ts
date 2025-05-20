@@ -1,7 +1,7 @@
 import {QuestsRepository} from "../models/repositories/quests.repository";
-import {Quest} from "../models/quest.model";
+import {Quest, QuestStage} from "../models/quest.model";
 import {QuestsStatusRepository} from "../models/repositories/quests-status.repository";
-import {QuestStatus} from "../models/quest-status.model";
+import {ActiveQuest, QuestStatus} from "../models/quest-status.model";
 
 export class QuestManagerService {
 
@@ -11,16 +11,6 @@ export class QuestManagerService {
         private readonly questsStatusRepository: QuestsStatusRepository,
     ) {}
 
-
-
-    /**
-     * Retrieves all available quests from the quests repository.
-     *
-     * @return {Array<Object>} A list of quest objects retrieved from the repository.
-     */
-    getAllQuests(): Quest[] {
-        return this.questsRepository.all();
-    }
 
 
     /**
@@ -37,8 +27,42 @@ export class QuestManagerService {
     }
 
 
-    // TODO active quests list
-    // TODO available quests list
-    // TODO method to test conditions
-    // TODO method to apply actions upon stage completion
+    /**
+     * Retrieves the active quest and its status by the specified quest ID.
+     *
+     * @param {string} questId - The unique identifier of the quest to be retrieved.
+     * @return {{quest: Quest, status: QuestStatus} | undefined} An object containing the quest and its status if found, or undefined if either the quest or its status does not exist.
+     */
+    activeQuest(questId: string): ActiveQuest | undefined {
+        const status = this.questsStatusRepository.get(questId);
+        const quest = this.questsRepository.get(questId);
+        if (!status || !quest) {
+            return undefined;
+        }
+        return {
+            quest,
+            status,
+        }
+    }
+
+
+    /**
+     * Determines and returns the next stage in the active quest.
+     *
+     * @param {ActiveQuest} activeQuest - The active quest object containing the current quest and status data.
+     * @return {QuestStage | undefined} The next stage of the quest if available, or undefined if there are no further stages or the input data is invalid.
+     */
+    nextStage(activeQuest: ActiveQuest): QuestStage | undefined {
+        if (activeQuest.quest && activeQuest.status && activeQuest.quest.stages.length > 0) {
+            for (let stage of activeQuest.quest.stages) {
+                if (stage.id >= activeQuest.status.currentStage) {
+                    return stage;
+                }
+            }
+        }
+        return undef
+    }
+
+    // TODO test if quest stage conditions are met
+    // TODO apply actions upon stage completion
 }
